@@ -11,6 +11,10 @@
 
 ### Technologies
 
-1.Stack: MERN  
-2.Animations: Framer Motion  
-3.Auth: oAuth 2.0
+1.Stack: MERN    
+2.Animations: Framer Motion   
+3.Auth: oAuth 2.0  
+
+#### Current status:  
+
+> Web app under construction
