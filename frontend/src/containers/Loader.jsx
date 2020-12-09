@@ -9,7 +9,7 @@ function Loader({ height }) {
   };
   return (
     <div style={loadingStyle}>
-      <div className="spinner-border text-warning" role="status">
+      <div className="spinner-border text-danger" role="status">
         <span className="sr-only"></span>
       </div>
     </div>

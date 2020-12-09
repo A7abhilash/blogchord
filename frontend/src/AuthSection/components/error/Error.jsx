@@ -1,0 +1,22 @@
+import React from "react";
+import error from "./error.png";
+
+function Error() {
+  return (
+    <div className=" mx-2 mx-md-auto text-center">
+      <img
+        src={error}
+        alt="Error"
+        className="img-fluid my-5"
+        style={imgStyle}
+      />
+      <h5>Something went wrong!</h5>
+    </div>
+  );
+}
+
+export default Error;
+
+const imgStyle = {
+  height: "50vh",
+};

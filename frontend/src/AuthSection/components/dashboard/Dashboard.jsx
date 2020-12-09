@@ -3,23 +3,31 @@ import UserProfile from "../../containers/UserProfile";
 import { useAuth } from "../../../contexts/AuthContext";
 import SelectOptions from "./SelectOptions";
 import { Link } from "react-router-dom";
+import Card from "../../containers/Card";
 
 function Dashboard() {
-  const { user } = useAuth();
+  const { user, allBlogs } = useAuth();
   const [selectedOption, setSelectedOption] = useState("all");
-  const [displayBlogs, setDisplayBlogsBlogs] = useState({});
+  const [displayBlogs, setDisplayBlogs] = useState(allBlogs);
+  const [savedBlogs, setSavedBlogsBlogs] = useState([]);
 
   const setSelection = (id) => {
     setSelectedOption(id);
-  };
 
-  const switchOptions = (id) => {
     switch (id) {
       case "all":
+        return setDisplayBlogs(allBlogs);
       case "public":
+        return setDisplayBlogs(
+          allBlogs.filter((blog) => blog.status === "Public")
+        );
       case "private":
+        return setDisplayBlogs(
+          allBlogs.filter((blog) => blog.status === "Private")
+        );
       case "saved":
       default:
+        return setDisplayBlogs(allBlogs);
     }
   };
 
@@ -39,6 +47,16 @@ function Dashboard() {
           selectOptions={setSelection}
           selectedOption={selectedOption}
         />
+        <div className="row">
+          {displayBlogs &&
+            (displayBlogs.length ? (
+              displayBlogs.map((blog) => (
+                <Card key={blog._id} blog={blog} access={true} />
+              ))
+            ) : (
+              <p>You haven't posted any blog.</p>
+            ))}
+        </div>
       </div>
     </>
   );

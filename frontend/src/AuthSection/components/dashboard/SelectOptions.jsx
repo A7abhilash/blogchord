@@ -4,26 +4,29 @@ function SelectOptions({ selectOptions, selectedOption }) {
   const options = [
     {
       id: "all",
-      title: "Blogs",
+      title: "All",
     },
     {
       id: "public",
-      title: "Public Blogs",
+      title: "Public",
     },
     {
       id: "private",
-      title: "Private Blogs",
+      title: "Private",
     },
     {
       id: "saved",
-      title: "Saved Blogs",
+      title: "Saved",
     },
   ];
   return (
     <div className="mx-auto my-2 d-flex justify-content-around pt-2 text-center">
       {options.map((option) =>
         option.id === selectedOption ? (
-          <div key={option.id} className="options text-danger">
+          <div
+            key={option.id}
+            className="options text-danger border-bottom border-danger"
+          >
             <h6>{option.title}</h6>
           </div>
         ) : (

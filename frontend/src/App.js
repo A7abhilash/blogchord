@@ -9,7 +9,7 @@ import AuthRoute from "./containers/AuthRoute";
 import GuestRoute from "./containers/GuestRoute";
 //components
 import Loader from "./containers/Loader";
-import Main from "./AuthSection/Main";
+import Home from "./AuthSection/Home";
 import GuestSection from "./GuestSection/GuestSection";
 import Dashboard from "./AuthSection/components/dashboard/Dashboard";
 import Navbar from "./AuthSection/containers/Navbar";
@@ -30,15 +30,15 @@ function App() {
         <div className="container">
           <div className="row pt-4">
             <Switch>
-              {/* <AuthRoute exact path="/" component={Main} />
+              {/* <AuthRoute exact path="/" component={Home} />
               <GuestRoute exact path="/home" component={GuestSection} /> */}
               <Route exact path="/">
-                {user ? <Main /> : <GuestSection />}
+                {user ? <Home /> : <GuestSection />}
               </Route>
               <AuthRoute exact path="/dashboard" component={Dashboard} />
               <AuthRoute exact path="/post" component={Post} />
               <AuthRoute exact path="/edit/:id" component={Edit} />
-              <AuthRoute exact path="/blog/:id" component={Blog} />
+              <AuthRoute exact path="/read/:id" component={Blog} />
               <AuthRoute exact path="/user/:userId" component={ProfileVisit} />
               <Redirect from="*" to="/" />
             </Switch>

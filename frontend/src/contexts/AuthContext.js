@@ -8,6 +8,7 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState({});
+  const [allBlogs, setAllBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,17 +17,22 @@ export function AuthProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
-        setUser(data);
+        setUser(data.user);
+        setAllBlogs(data.blogs);
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
         setLoading(false);
+        // setTimeout(() => {
+        //   setUser({ image: "xyz", displayName: "A7" });
+        //   setLoading(false);
+        // }, 2000);
       });
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, loading, allBlogs }}>
       {children}
     </AuthContext.Provider>
   );
