@@ -9,7 +9,7 @@ import AuthRoute from "./containers/AuthRoute";
 import GuestRoute from "./containers/GuestRoute";
 //components
 import Loader from "./containers/Loader";
-import Home from "./AuthSection/Home";
+import Home from "./AuthSection/components/Home";
 import GuestSection from "./GuestSection/GuestSection";
 import Dashboard from "./AuthSection/components/dashboard/Dashboard";
 import Navbar from "./AuthSection/containers/Navbar";

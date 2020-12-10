@@ -9,7 +9,7 @@ function Dashboard() {
   const { user, allBlogs } = useAuth();
   const [selectedOption, setSelectedOption] = useState("all");
   const [displayBlogs, setDisplayBlogs] = useState(allBlogs);
-  const [savedBlogs, setSavedBlogsBlogs] = useState([]);
+  const [savedBlogs, setSavedBlogs] = useState([]);
 
   const setSelection = (id) => {
     setSelectedOption(id);
@@ -51,7 +51,12 @@ function Dashboard() {
           {displayBlogs &&
             (displayBlogs.length ? (
               displayBlogs.map((blog) => (
-                <Card key={blog._id} blog={blog} access={true} />
+                <Card
+                  key={blog._id}
+                  blog={blog}
+                  access={true}
+                  isProfile={true}
+                />
               ))
             ) : (
               <p>You haven't posted any blog.</p>

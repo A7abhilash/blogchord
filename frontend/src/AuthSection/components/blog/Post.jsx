@@ -30,22 +30,25 @@ function Post() {
       body: JSON.stringify(newBlog),
     }).then((res) => {
       // console.log(res.status);
-      setResponse(res.status);
+      setResponse(500);
     });
   };
 
   return (
     <>
-      {response === 200 && <Redirect to="/dashboard" />}
-      {response === 500 && <Error />}
-      <BlogPost
-        type="Post"
-        titleRef={titleRef}
-        statusRef={statusRef}
-        body={body}
-        setBody={setBody}
-        handleSubmit={postBlog}
-      />
+      {response === 200 && <Redirect to="/" />}
+      {response === 500 ? (
+        <Error />
+      ) : (
+        <BlogPost
+          type="Post"
+          titleRef={titleRef}
+          statusRef={statusRef}
+          body={body}
+          setBody={setBody}
+          handleSubmit={postBlog}
+        />
+      )}
     </>
   );
 }

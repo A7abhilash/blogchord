@@ -7,7 +7,7 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [allBlogs, setAllBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,8 +17,10 @@ export function AuthProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
-        setUser(data.user);
-        setAllBlogs(data.blogs);
+        if (data) {
+          setUser(data.user);
+          setAllBlogs(data.blogs);
+        }
         setLoading(false);
       })
       .catch((error) => {

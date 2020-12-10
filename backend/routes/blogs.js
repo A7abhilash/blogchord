@@ -16,4 +16,40 @@ router.post("/post", ensureAuth, async (req, res) => {
   }
 });
 
+//*route    /blogs/
+//*desc     Display all public blogs
+router.get("/", ensureAuth, async (req, res) => {
+  try {
+    const blogs = await Blog.find({ status: "Public" })
+      .populate("user")
+      .sort({ createdAt: "desc" })
+      .lean();
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500);
+  }
+});
+
+//*route    /blogs/read/:id
+//*desc     Display all public blogs
+router.get("/read/:id", ensureAuth, async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id).populate("user").lean();
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(500);
+  }
+});
+
+//*route    /blogs/delete/:id
+//*desc     Display all public blogs
+router.delete("/delete/:id", ensureAuth, async (req, res) => {
+  try {
+    await Blog.findByIdAndDelete(req.params.id);
+    res.status(200);
+  } catch (error) {
+    res.status(500);
+  }
+});
+
 module.exports = router;
