@@ -44,6 +44,7 @@ app.set("view engine", "ejs");
 app.use("/", require("./routes/index"));
 app.use("/auth", require("./routes/auth"));
 app.use("/blogs", require("./routes/blogs"));
+app.use("/users", require("./routes/users"));
 
 //*****PORT
 const PORT = process.env.PORT || 7781;

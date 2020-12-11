@@ -9,10 +9,10 @@ router.post("/post", ensureAuth, async (req, res) => {
   try {
     // console.log(req.body);
     await Blog.create(req.body);
-    res.status(200).json({ msg: "success" });
+    res.status(200).json({ msg: "Blog posted" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: msg.error });
+    res.status(500).json({ msg: "Server Error" });
   }
 });
 
@@ -26,7 +26,7 @@ router.get("/", ensureAuth, async (req, res) => {
       .lean();
     res.status(200).json(blogs);
   } catch (error) {
-    res.status(500);
+    res.status(500).json({ msg: "Server Error" });
   }
 });
 
@@ -37,18 +37,43 @@ router.get("/read/:id", ensureAuth, async (req, res) => {
     const blog = await Blog.findById(req.params.id).populate("user").lean();
     res.status(200).json(blog);
   } catch (error) {
-    res.status(500);
+    res.status(500).json({ msg: "Server Error" });
+  }
+});
+
+//*route    /blogs/edit/:id
+//*desc     Edit a blog
+router.patch("/edit/:id", ensureAuth, async (req, res) => {
+  try {
+    let blog = await Blog.findById(req.params.id);
+    if (!blog) {
+      return res.status(400).json({ msg: "404 Error" });
+    }
+    if (blog.user.toString() !== req.user.id.toString()) {
+      return res.status(400).json({ msg: "404 Error" });
+    }
+    await blog.updateOne(req.body);
+    res.status(200).json({ msg: "Edited blog" });
+  } catch (error) {
+    res.status(500).json({ msg: "Server Error" });
   }
 });
 
 //*route    /blogs/delete/:id
-//*desc     Display all public blogs
+//*desc     Delete a blog
 router.delete("/delete/:id", ensureAuth, async (req, res) => {
   try {
-    await Blog.findByIdAndDelete(req.params.id);
-    res.status(200);
+    let blog = await Blog.findById(req.params.id);
+    if (!blog) {
+      return res.status(400);
+    }
+    if (blog.user.toString() !== req.user.id.toString()) {
+      return res.status(400);
+    }
+    await blog.deleteOne(req.body);
+    res.status(200).json({ msg: "Deleted blog" });
   } catch (error) {
-    res.status(500);
+    res.status(500).json({ msg: "Server Error" });
   }
 });
 

@@ -34,6 +34,10 @@ function BlogPost({ type, handleSubmit, titleRef, statusRef, body, setBody }) {
             <option value="Private">Private</option>
             <option value="Public">Public</option>
           </select>
+          <p className="text-muted pl-1">
+            <strong>TIP: </strong> Set private status if you want to save your
+            blog as draft.
+          </p>
         </div>
         <div className="form-group">
           <label>Body:</label>

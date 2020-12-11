@@ -30,13 +30,13 @@ function Post() {
       body: JSON.stringify(newBlog),
     }).then((res) => {
       // console.log(res.status);
-      setResponse(500);
+      setResponse(res.status);
     });
   };
 
   return (
     <>
-      {response === 200 && <Redirect to="/" />}
+      {response === 200 && <Redirect to="/dashboard" />}
       {response === 500 ? (
         <Error />
       ) : (

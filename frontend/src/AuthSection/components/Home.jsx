@@ -17,7 +17,7 @@ function Home() {
     fetch("/blogs/")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setBlogs(data);
         setLoading(false);
         setError(false);

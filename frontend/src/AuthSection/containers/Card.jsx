@@ -1,28 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { deleteBlog } from "./../db/useDB";
 
 function Card({ blog, access, isProfile }) {
-  const deleteBlog = (id) => {
-    if (access) {
-      if (window.confirm("Are you sure to delete this blog?")) {
-        fetch(`/blogs/delete/${id}`, {
-          method: "DELETE",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then(() => {
-            alert("Blog deleted.");
-          })
-          .catch((err) => {
-            alert("Error");
-          });
-      }
-    }
-  };
-
   return (
     <div className="col-md-5 card mx-2 mx-md-auto my-2 p-0 shadow-lg bg-dark rounded">
       <div
@@ -42,16 +22,26 @@ function Card({ blog, access, isProfile }) {
           />
           <h6 className="m-0 text-danger">{blog.user.displayName}</h6>
         </Link>
-        {access && (
-          <div className="ml-auto d-flex align-items-center">
-            <Link to={`/edit/${blog._id}`} className="text-warning m-1">
-              <i className="fas fa-edit"></i>
-            </Link>
-            <h6 className="options m-1" onClick={() => deleteBlog(blog._id)}>
-              <i className="fas fa-trash"></i>
+        <div className="ml-auto d-flex align-items-center">
+          {access ? (
+            <>
+              <Link to={`/edit/${blog._id}`} className="text-warning m-1">
+                <i className="fas fa-edit"></i>
+              </Link>
+              <h6
+                className="options m-1"
+                onClick={() => deleteBlog(blog._id, access)}
+              >
+                <i className="fas fa-trash"></i>
+              </h6>
+            </>
+          ) : (
+            <h6 className="text-primary m-1">
+              <i className="far fa-star"></i>
+              {/* <i className="fas fa-star"></i> */}
             </h6>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <div className="card-content p-2 border-top border-secondary">
         <h5 className="text-light">{blog.title}</h5>
@@ -67,15 +57,12 @@ function Card({ blog, access, isProfile }) {
           >
             Read
           </Link>
-          <div className="ml-auto d-flex align-items-center">
+          <div className="ml-auto">
             <Link to={`/edit/${blog._id}`} className="text-danger m-1">
               <i className="far fa-heart fa-lg"></i>
+              <span className="text-muted ml-1">(0)</span>
               {/* <i className="fas fa-heart fa-lg"></i> */}
             </Link>
-            <h6 className="text-primary m-1">
-              <i className="far fa-star fa-lg"></i>
-              {/* <i className="fas fa-star fa-lg"></i> */}
-            </h6>
           </div>
         </div>
       </div>
