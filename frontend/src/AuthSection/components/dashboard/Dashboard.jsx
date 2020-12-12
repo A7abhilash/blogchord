@@ -4,6 +4,7 @@ import { useAuth } from "../../../contexts/AuthContext";
 import SelectOptions from "./SelectOptions";
 import { Link } from "react-router-dom";
 import Card from "../../containers/Card";
+import { motion } from "framer-motion";
 
 function Dashboard() {
   const { user, allBlogs } = useAuth();
@@ -32,7 +33,13 @@ function Dashboard() {
   };
 
   return (
-    <>
+    <motion.div
+      variants={dashboardVariant}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="row"
+    >
       <div className="col-md-3 border-right border-secondary">
         <UserProfile user={user} />
       </div>
@@ -54,17 +61,31 @@ function Dashboard() {
                 <Card
                   key={blog._id}
                   blog={blog}
-                  access={true}
+                  access={user._id === blog.user._id}
                   isProfile={true}
                 />
               ))
             ) : (
-              <p>You haven't posted any blog.</p>
+              <p className="text-muted">No blog found.</p>
             ))}
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }
 
 export default Dashboard;
+
+const dashboardVariant = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: 1 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { ease: "easeInOut" },
+  },
+};

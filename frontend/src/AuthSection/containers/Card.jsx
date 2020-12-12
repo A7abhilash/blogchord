@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { deleteBlog } from "./../db/useDB";
+import { motion } from "framer-motion";
 
 function Card({ blog, access, isProfile }) {
   return (
-    <div className="col-md-5 card mx-2 mx-md-auto my-2 p-0 shadow-lg bg-dark rounded">
+    <motion.div
+      variants={cardVariant}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="col-md-5 card mx-2 mx-md-auto my-2 p-0 shadow-lg bg-dark rounded"
+    >
       <div
         className={`card-header ${
           access && "bg-secondary"
@@ -25,11 +32,11 @@ function Card({ blog, access, isProfile }) {
         <div className="ml-auto d-flex align-items-center">
           {access ? (
             <>
-              <Link to={`/edit/${blog._id}`} className="text-warning m-1">
+              <Link to={`/edit/${blog._id}`} className="text-info m-1">
                 <i className="fas fa-edit"></i>
               </Link>
               <h6
-                className="options m-1"
+                className="options m-1 text-dark"
                 onClick={() => deleteBlog(blog._id, access)}
               >
                 <i className="fas fa-trash"></i>
@@ -45,6 +52,10 @@ function Card({ blog, access, isProfile }) {
       </div>
       <div className="card-content p-2 border-top border-secondary">
         <h5 className="text-light">{blog.title}</h5>
+        <p className="text-muted mb-1">
+          <i className="fas fa-clock mr-1"></i>
+          <span>{new Date(blog.createdAt).toDateString()}</span>
+        </p>
         {isProfile && access && (
           <div className="badge badge-pill badge-danger py-1 px-2 mb-1">
             {blog.status}
@@ -58,16 +69,34 @@ function Card({ blog, access, isProfile }) {
             Read
           </Link>
           <div className="ml-auto">
-            <Link to={`/edit/${blog._id}`} className="text-danger m-1">
-              <i className="far fa-heart fa-lg"></i>
-              <span className="text-muted ml-1">(0)</span>
-              {/* <i className="fas fa-heart fa-lg"></i> */}
-            </Link>
+            <i className="far fa-heart fa-lg"></i>
+            <span className="text-muted ml-1">(0)</span>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default Card;
+
+const cardVariant = {
+  hidden: {
+    scale: 0,
+  },
+  visible: {
+    scale: 1,
+    transition: {
+      delay: 0.2,
+      duration: 0.5,
+    },
+  },
+  exit: {
+    scale: 0,
+    transition: {
+      delay: 0.2,
+      duration: 0.5,
+      transition: { ease: "easeInOut" },
+    },
+  },
+};

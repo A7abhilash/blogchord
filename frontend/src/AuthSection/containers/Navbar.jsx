@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { motion } from "framer-motion";
 import icon from "./../../icon.png";
 
 const BACKEND_URL = "http://localhost:7781";
@@ -13,13 +14,23 @@ function Navbar() {
           to="/"
           className="navbar-brand d-flex align-items-center text-danger"
         >
-          <img
+          <motion.img
             src={icon}
+            variants={headerIcon}
+            initial="hidden"
+            animate="visible"
             alt="blogchord"
             className="img-fluid mr-1"
             style={{ height: 50 }}
           />
-          <h3>Blogchord</h3>
+          <motion.h1
+            variants={headerTitle}
+            initial="hidden"
+            animate="visible"
+            id="header-title"
+          >
+            Blogchord
+          </motion.h1>
         </Link>
         {user && (
           <>
@@ -61,3 +72,25 @@ function Navbar() {
 }
 
 export default Navbar;
+
+const headerIcon = {
+  hidden: {
+    opacity: 0,
+    rotateZ: 0,
+  },
+  visible: {
+    opacity: 1,
+    rotateZ: 360,
+    transition: { duration: 1 },
+  },
+};
+
+const headerTitle = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: 1 },
+  },
+};

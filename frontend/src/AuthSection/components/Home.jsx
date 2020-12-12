@@ -4,6 +4,7 @@ import Loader from "../../containers/Loader";
 import { useAuth } from "../../contexts/AuthContext";
 import Card from "../containers/Card";
 import Error from "./error/Error";
+import { motion } from "framer-motion";
 
 function Home() {
   const { user } = useAuth();
@@ -31,7 +32,13 @@ function Home() {
   return error ? (
     <Error />
   ) : (
-    <div className="col-md-8 mx-auto">
+    <motion.div
+      variants={homeVariant}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="col-md-8 mx-auto"
+    >
       <div className="d-flex align-items-center my-2">
         <h4>Blogs</h4>
         <Link to="/post" className="btn btn-sm btn-info ml-auto pb-0">
@@ -57,8 +64,22 @@ function Home() {
             ))}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
 export default Home;
+
+const homeVariant = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: 1 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { ease: "easeInOut" },
+  },
+};

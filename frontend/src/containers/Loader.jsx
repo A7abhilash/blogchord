@@ -6,6 +6,7 @@ function Loader({ height }) {
     alignItems: "center",
     justifyContent: "center",
     height: `${height}vh`,
+    margin: "auto",
   };
   return (
     <div style={loadingStyle}>

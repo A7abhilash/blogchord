@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
     fetch("/user")
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         if (data) {
           setUser(data.user);
           setAllBlogs(data.blogs);

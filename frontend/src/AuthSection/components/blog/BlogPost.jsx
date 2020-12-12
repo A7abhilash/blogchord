@@ -2,10 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { motion } from "framer-motion";
 
 function BlogPost({ type, handleSubmit, titleRef, statusRef, body, setBody }) {
   return (
-    <div className="col-md-6 mx-2 mx-md-auto bg-silver text-dark p-3 my-4 rounded">
+    <motion.div
+      variants={blogPostVariant}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="col-md-6 mx-2 mx-md-auto bg-silver text-dark p-3 my-4 rounded"
+    >
       <h3 className="text-center">{type} a blog</h3>
       <form
         className="my-3 py-2 border-top border-secondary"
@@ -56,8 +63,27 @@ function BlogPost({ type, handleSubmit, titleRef, statusRef, body, setBody }) {
           </Link>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 }
 
 export default BlogPost;
+
+const blogPostVariant = {
+  hidden: {
+    y: "-100vh",
+  },
+  visible: {
+    y: "0",
+    transition: {
+      delay: 0.2,
+      durations: 1,
+      type: "spring",
+      stiffness: 100,
+    },
+  },
+  exit: {
+    y: "100vh",
+    transition: { ease: "easeInOut" },
+  },
+};

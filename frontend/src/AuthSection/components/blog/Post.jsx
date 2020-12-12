@@ -40,14 +40,16 @@ function Post() {
       {response === 500 ? (
         <Error />
       ) : (
-        <BlogPost
-          type="Post"
-          titleRef={titleRef}
-          statusRef={statusRef}
-          body={body}
-          setBody={setBody}
-          handleSubmit={postBlog}
-        />
+        <div className="row">
+          <BlogPost
+            type="Post"
+            titleRef={titleRef}
+            statusRef={statusRef}
+            body={body}
+            setBody={setBody}
+            handleSubmit={postBlog}
+          />
+        </div>
       )}
     </>
   );

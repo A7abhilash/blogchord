@@ -1,13 +1,12 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
+import Loader from "../../../containers/Loader";
+import Error from "../error/Error";
+import UserProfile from "../../containers/UserProfile";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
-import { Link } from "react-router-dom";
-import Loader from "../../../containers/Loader";
-import { useAuth } from "../../../contexts/AuthContext";
-import UserProfile from "../../containers/UserProfile";
-import Error from "../error/Error";
+import { motion } from "framer-motion";
 
 function Blog(props) {
   const { user } = useAuth();
@@ -37,8 +36,14 @@ function Blog(props) {
   ) : error ? (
     <Error />
   ) : (
-    <>
-      <div className="col-md-4 my-2">
+    <div className="row">
+      <motion.div
+        variants={blogAuthorVariant}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="col-md-4 my-2"
+      >
         <h4 className="text-center text-danger">Author</h4>
         <UserProfile user={blog.user} />
         <Link
@@ -49,9 +54,19 @@ function Blog(props) {
         >
           Visit Profile
         </Link>
-      </div>
-      <div className="col-md-7 mx-2 p-2 my-2 mx-md-auto bg-dark">
-        <h3 className="text-center text-warning">{blog.title}</h3>
+      </motion.div>
+      <motion.div
+        variants={blogContentVariant}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="col-md-7 mx-2 p-2 my-2 mx-md-auto bg-dark"
+      >
+        <h3 className="text-center text-warning mb-1">{blog.title}</h3>
+        <p className="pb-1 text-muted text-center border-bottom border-secondary">
+          <i className="fas fa-clock mr-1"></i>
+          <span>{new Date(blog.createdAt).toDateString()}</span>
+        </p>
         <div className="border-left border-danger m-2 pl-2">
           <ReactQuill
             className="bg-dark text-white"
@@ -60,9 +75,43 @@ function Blog(props) {
             theme="bubble"
           />
         </div>
-      </div>
-    </>
+      </motion.div>
+    </div>
   );
 }
 
 export default Blog;
+
+const blogAuthorVariant = {
+  hidden: {
+    x: "-100vw",
+  },
+  visible: {
+    x: 0,
+    transition: {
+      delay: 0.5,
+      duration: 1,
+    },
+  },
+  exit: {
+    x: "-100vw",
+    transition: { ease: "easeInOut" },
+  },
+};
+
+const blogContentVariant = {
+  hidden: {
+    x: "100vw",
+  },
+  visible: {
+    x: 0,
+    transition: {
+      delay: 0.5,
+      duration: 1,
+    },
+  },
+  exit: {
+    x: "100vw",
+    transition: { ease: "easeInOut" },
+  },
+};

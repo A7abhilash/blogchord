@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nerko+One&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +9,11 @@
 body {
   background-color: #121212;
   color: #eeeeee;
+}
+
+#header-title {
+  font-family: "Nerko One", cursive;
+  font-size: 2.3rem;
 }
 
 .bg-gray {
