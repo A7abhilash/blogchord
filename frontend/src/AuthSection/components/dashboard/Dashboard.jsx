@@ -5,12 +5,26 @@ import SelectOptions from "./SelectOptions";
 import { Link } from "react-router-dom";
 import Card from "../../containers/Card";
 import { motion } from "framer-motion";
+import { getLoggedInUserDetails } from "../../db/useDB";
+import { useEffect } from "react";
 
 function Dashboard() {
-  const { user, allBlogs } = useAuth();
+  const { user } = useAuth();
+  const [allBlogs, setAllBlogs] = useState(null);
   const [selectedOption, setSelectedOption] = useState("all");
-  const [displayBlogs, setDisplayBlogs] = useState(allBlogs);
+  const [displayBlogs, setDisplayBlogs] = useState([]);
   const [savedBlogs, setSavedBlogs] = useState([]);
+
+  const fetchBlogs = async () => {
+    const data = await getLoggedInUserDetails(user._id);
+    console.log(data);
+    setAllBlogs(data.blogs);
+    setDisplayBlogs(data.blogs);
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
 
   const setSelection = (id) => {
     setSelectedOption(id);
@@ -50,10 +64,12 @@ function Dashboard() {
             <h6>Post a blog</h6>
           </Link>
         </div>
-        <SelectOptions
-          selectOptions={setSelection}
-          selectedOption={selectedOption}
-        />
+        {allBlogs && (
+          <SelectOptions
+            selectOptions={setSelection}
+            selectedOption={selectedOption}
+          />
+        )}
         <div className="row">
           {displayBlogs &&
             (displayBlogs.length ? (
