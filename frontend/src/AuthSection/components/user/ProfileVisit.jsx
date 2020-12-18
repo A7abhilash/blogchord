@@ -21,13 +21,18 @@ function ProfileVisit(props) {
       fetch(`/users/${props.match.params.userId}`)
         .then((res) => res.json())
         .then((data) => {
-          // console.log(data);
+          console.log(data);
+          // if (data.msg) {
+          //   setError(true);
+          // } else {
+          // }
           setProfile(data.user);
           setBlogs(data.blogs);
-          setLoading(false);
           setError(false);
+          setLoading(false);
         })
         .catch((err) => {
+          console.log(err);
           setProfile({});
           setBlogs([]);
           setLoading(false);
@@ -88,8 +93,6 @@ const profileVariant = {
   },
   exit: {
     opacity: 0,
-    transition: {
-      transition: { delay: 0.2, ease: "easeInOut" },
-    },
+    transition: { delay: 0.2, ease: "easeInOut" },
   },
 };

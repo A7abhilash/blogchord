@@ -43,8 +43,13 @@ function Card({ blog, access, isProfile }) {
               </h6>
             </>
           ) : (
-            <h6 className="text-primary m-1">
-              <i className="far fa-star"></i>
+            <h6 className="text-primary m-1 options">
+              <motion.i
+                variants={starVariant}
+                whileHover="hover"
+                whileTap="tap"
+                className="far fa-star"
+              ></motion.i>
               {/* <i className="fas fa-star"></i> */}
             </h6>
           )}
@@ -69,7 +74,12 @@ function Card({ blog, access, isProfile }) {
             Read
           </Link>
           <div className="ml-auto">
-            <i className="far fa-heart fa-lg"></i>
+            <motion.i
+              variants={heartVariant}
+              whileHover="hover"
+              whileTap="tap"
+              className="far fa-heart fa-lg options text-warning"
+            ></motion.i>
             <span className="text-muted ml-1">(0)</span>
           </div>
         </div>
@@ -98,5 +108,25 @@ const cardVariant = {
       duration: 0.5,
       transition: { ease: "easeInOut" },
     },
+  },
+};
+
+const starVariant = {
+  hover: {
+    scale: 1.1,
+    fill: "#007bff",
+  },
+  tap: {
+    scale: 0.8,
+  },
+};
+
+const heartVariant = {
+  hover: {
+    scale: 1.1,
+    fill: "#007bff",
+  },
+  tap: {
+    scale: 0.8,
   },
 };

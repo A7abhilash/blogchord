@@ -54,10 +54,10 @@ function Dashboard() {
       exit="exit"
       className="row"
     >
-      <div className="col-md-3 border-right border-secondary">
+      <div className="col-md-3 my-2 border-right border-secondary">
         <UserProfile user={user} />
       </div>
-      <div className="col-md-8 mx-auto">
+      <div className="col-md-8 my-2 mx-auto">
         <div className="d-flex align-items-center my-2">
           <h4>Your Blogs</h4>
           <Link to="/post" className="btn btn-sm btn-info ml-auto pb-0">

@@ -8,12 +8,17 @@ const Bookmark = require("../models/Bookmarks");
 //*desc     Fetch the required user's blogs
 router.get("/:id", ensureAuth, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    const blogs = await Blog.find({ user: req.params.id })
-      .populate("user")
-      .sort({ createdAt: "desc" })
-      .lean();
-    res.status(200).json({ user, blogs });
+    try {
+      const user = await User.findById(req.params.id);
+      const blogs = await Blog.find({ user: req.params.id })
+        .populate("user")
+        .sort({ createdAt: "desc" })
+        .lean();
+      res.status(200).json({ user, blogs });
+    } catch (error) {
+      // console.error(error);
+      res.status(404).sendStatus(404).statusMessage({ msg: "User not found" }); //.json({ msg: "404 Error" });
+    }
   } catch (error) {
     res.status(500).json({ msg: "Server Error" });
   }
