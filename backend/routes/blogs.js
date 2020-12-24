@@ -8,10 +8,10 @@ router.post("/post", ensureAuth, async (req, res) => {
   try {
     // console.log(req.body);
     await Blog.create(req.body);
-    res.statusCode(200).json({ msg: "Blog posted" });
+    res.status(200).json({ msg: "Blog posted" });
   } catch (error) {
     console.log(error);
-    res.statusCode(500).json({ msg: "Server Error" });
+    res.status(500).json({ msg: "Server Error" });
   }
 });
 

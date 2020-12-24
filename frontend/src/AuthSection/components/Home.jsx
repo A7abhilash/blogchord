@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../containers/Loader";
-import { useAuth } from "../../contexts/AuthContext";
-import Card from "../containers/Card";
 import Error from "./error/Error";
 import { motion } from "framer-motion";
+import BlogsContainer from "../containers/BlogsContainer";
+import { getLoggedInUserDetails } from "../db/useDB";
+import { useAuth } from "../../contexts/AuthContext";
 
 function Home() {
   const { user } = useAuth();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [savedBlogsList, setSavedBlogsList] = useState([]);
+
+  const initialSetup = async () => {
+    const data = await getLoggedInUserDetails(user._id);
+    setSavedBlogsList(data.savedBlogsList.blogs);
+  };
+
+  useEffect(() => {
+    initialSetup();
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -49,20 +60,12 @@ function Home() {
         <Loader height="50" />
       ) : (
         <div className="row">
-          {blogs &&
-            (blogs.length ? (
-              blogs.map((blog) => (
-                <Card
-                  key={blog._id}
-                  blog={blog}
-                  access={user._id === blog.user._id}
-                  userId={user._id}
-                  isProfile={false}
-                />
-              ))
-            ) : (
-              <p>No blogs found.</p>
-            ))}
+          {blogs && (
+            <BlogsContainer
+              displayBlogs={blogs}
+              savedBlogsList={savedBlogsList}
+            />
+          )}
         </div>
       )}
     </motion.div>

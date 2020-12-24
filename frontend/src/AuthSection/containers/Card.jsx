@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { addToBookmark, deleteBlog } from "./../db/useDB";
 import { motion } from "framer-motion";
 
-function Card({ blog, access, isProfile, userId }) {
-  const addBookmark = async (blogId) => {
-    let res = await addToBookmark(blogId, userId);
-    console.log(res);
-  };
-
+function Card({
+  blog,
+  access,
+  isProfile,
+  addBookmark,
+  deleteBlog,
+  isBookmarked,
+  removeBookmark,
+}) {
   return (
     <motion.div
       variants={cardVariant}
@@ -53,8 +55,12 @@ function Card({ blog, access, isProfile, userId }) {
                 variants={starVariant}
                 whileHover="hover"
                 whileTap="tap"
-                className="far fa-star"
-                onClick={() => addBookmark(blog._id)}
+                className={`${isBookmarked}? fas fa-star : far fa-star`}
+                onClick={
+                  isBookmarked
+                    ? () => removeBookmark(blog._id)
+                    : () => addBookmark(blog._id)
+                }
               ></motion.i>
               {/* <i className="fas fa-star"></i> */}
             </h6>

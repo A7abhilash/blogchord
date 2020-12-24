@@ -2,7 +2,7 @@ import React from "react";
 
 function UserProfile({ user }) {
   return (
-    <div className="d-flex d-md-block align-items-center text-center">
+    <div className="d-flex d-md-block align-items-center text-center border-bottom border-danger pb-2">
       <img
         src={`${user.image}`}
         alt="profile"

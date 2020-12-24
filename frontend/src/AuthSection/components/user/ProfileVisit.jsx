@@ -6,6 +6,8 @@ import UserProfile from "../../containers/UserProfile";
 import Loader from "./../../../containers/Loader";
 import Error from "./../error/Error";
 import { motion } from "framer-motion";
+import { getLoggedInUserDetails } from "../../db/useDB";
+import BlogsContainer from "../../containers/BlogsContainer";
 
 function ProfileVisit(props) {
   const { user } = useAuth();
@@ -13,6 +15,16 @@ function ProfileVisit(props) {
   const [blogs, setBlogs] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [savedBlogsList, setSavedBlogsList] = useState([]);
+
+  const initialSetup = async () => {
+    const data = await getLoggedInUserDetails(user._id);
+    setSavedBlogsList(data.savedBlogsList.blogs);
+  };
+
+  useEffect(() => {
+    initialSetup();
+  }, []);
 
   useEffect(() => {
     if (user._id !== props.match.params.userId) {
@@ -22,10 +34,6 @@ function ProfileVisit(props) {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          // if (data.msg) {
-          //   setError(true);
-          // } else {
-          // }
           setProfile(data.user);
           setBlogs(data.blogs);
           setError(false);
@@ -54,27 +62,18 @@ function ProfileVisit(props) {
       exit="exit"
       className="row"
     >
-      <div className="col-md-3 border-right border-secondary">
+      <div className="col-md-3 border-right border-secondary my-2">
         <UserProfile user={profile} />
       </div>
-      <div className="col-md-8 mx-auto">
+      <div className="col-md-8 mx-auto my-2">
         <h4>Blogs</h4>
         <div className="row">
-          {blogs &&
-            (blogs.length ? (
-              blogs.map((blog) => (
-                <Card
-                  key={blog._id}
-                  blog={blog}
-                  access={user._id === blog.user._id}
-                  isProfile={true}
-                />
-              ))
-            ) : (
-              <p className="text-muted">
-                {user.firstName} haven't posted any blog.
-              </p>
-            ))}
+          {blogs && (
+            <BlogsContainer
+              displayBlogs={blogs}
+              savedBlogsList={savedBlogsList}
+            />
+          )}
         </div>
       </div>
     </motion.div>

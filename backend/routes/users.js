@@ -35,18 +35,19 @@ router.get("/auth/:id", ensureAuth, async (req, res) => {
         .lean();
       const savedBlogsList = await Bookmark.findOne({ user: req.params.id });
       // console.log(savedBlogsList);
-      const allBlogs = await Blog.find();
+      const allBlogs = await Blog.find().populate("user").lean();
       // console.log(allBlogs);
       const savedBlogs = [];
       if (savedBlogsList) {
         savedBlogsList.blogs.forEach((blogId) => {
-          savedBlogs.push(
-            allBlogs.filter((blog) => blog._id.toString() === blogId.toString())
-          );
-          // if (allBlogs._id.toString()===blogId) {
-          // }
+          allBlogs.forEach((blog) => {
+            if (blog._id.toString() === blogId) {
+              savedBlogs.push(blog);
+            }
+          });
         });
       }
+      // console.log(savedBlogs);
       return res.status(200).json({ blogs, savedBlogs, savedBlogsList });
     }
     res.status(400).json({ msg: "404 Error" });
@@ -58,30 +59,20 @@ router.get("/auth/:id", ensureAuth, async (req, res) => {
 
 module.exports = router;
 
-//*route    /users/addBookmark
-//*desc     add new blog to bookmark
-router.patch("/addBookmark", ensureAuth, async (req, res) => {
+//*route    /users/bookmarks
+//*desc     add/remove a blog to/from bookmark
+router.patch("/bookmarks", ensureAuth, async (req, res) => {
   try {
     if (req.body.userId.toString() !== req.user.id.toString()) {
       return res.status(400).json({ msg: "404 Error" });
     }
     try {
-      const blogToBeSaved = await Blog.findById(req.body.blogId);
-      if (blogToBeSaved) {
-        const savedBlogsList = await Bookmark.findOne({
-          user: req.body.userId,
-        });
-        // console.log(savedBlogsList.blogs);
-        if (!savedBlogsList.blogs.includes(req.body.blogId)) {
-          savedBlogsList.blogs.unshift(req.body.blogId); //= [,...savedBlogsList]
-          await Bookmark.findOneAndUpdate(
-            { user: req.body.userId },
-            savedBlogsList
-          );
-          return res.status(200).json({ msg: "Saved new blog." });
-        }
-        res.status(200).json({ msg: "Blog is already saved." });
-      }
+      let savedBlogsList = await Bookmark.findOne({
+        user: req.body.userId,
+      });
+      // console.log(req.body);
+      await savedBlogsList.updateOne(req.body);
+      return res.status(200).json({ msg: "Bookmarks updated" });
     } catch (error) {
       console.log(error);
       res.status(400).json({ msg: "404 Error" });

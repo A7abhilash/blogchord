@@ -3,10 +3,10 @@ import UserProfile from "../../containers/UserProfile";
 import { useAuth } from "../../../contexts/AuthContext";
 import SelectOptions from "./SelectOptions";
 import { Link } from "react-router-dom";
-import Card from "../../containers/Card";
 import { motion } from "framer-motion";
 import { getLoggedInUserDetails } from "../../db/useDB";
 import { useEffect } from "react";
+import BlogsContainer from "../../containers/BlogsContainer";
 
 function Dashboard() {
   const { user } = useAuth();
@@ -14,6 +14,7 @@ function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("all");
   const [displayBlogs, setDisplayBlogs] = useState([]);
   const [savedBlogs, setSavedBlogs] = useState([]);
+  const [savedBlogsList, setSavedBlogsList] = useState([]);
 
   const fetchBlogs = async () => {
     const data = await getLoggedInUserDetails(user._id);
@@ -21,6 +22,7 @@ function Dashboard() {
     setAllBlogs(data.blogs);
     setDisplayBlogs(data.blogs);
     setSavedBlogs(data.savedBlogs);
+    setSavedBlogsList(data.savedBlogsList.blogs);
   };
 
   useEffect(() => {
@@ -72,20 +74,12 @@ function Dashboard() {
           />
         )}
         <div className="row">
-          {displayBlogs &&
-            (displayBlogs.length ? (
-              displayBlogs.map((blog) => (
-                <Card
-                  key={blog._id}
-                  blog={blog}
-                  access={user._id === blog.user._id}
-                  userId={user._id}
-                  isProfile={true}
-                />
-              ))
-            ) : (
-              <p className="text-muted">No blog found.</p>
-            ))}
+          {displayBlogs && (
+            <BlogsContainer
+              displayBlogs={displayBlogs}
+              savedBlogsList={savedBlogsList}
+            />
+          )}
         </div>
       </div>
     </motion.div>

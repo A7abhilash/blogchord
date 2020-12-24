@@ -2,15 +2,8 @@ export async function getLoggedInUserDetails(id) {
   try {
     let res = await fetch(`/users/auth/${id}`);
     let data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
-    // if (data) {
-    //   state = {
-    //     allBlogs: data.blogs,
-    //     savedBlogs: [],
-    //     notifications: [],
-    //   };
-    // }
   } catch (error) {
     alert(error.msg);
   }
@@ -50,6 +43,28 @@ export async function addToBookmark(blogId, userId) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newBlog),
+    });
+    let data = await res.json();
+    return data;
+  } catch (error) {
+    alert(error.msg);
+  }
+}
+
+export async function updateBookmark(updatedList, userId) {
+  console.log(updatedList);
+  try {
+    const updateList = {
+      blogs: updatedList,
+      userId,
+    };
+    let res = await fetch("/users/bookmarks", {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateList),
     });
     let data = await res.json();
     return data;
