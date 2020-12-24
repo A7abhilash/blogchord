@@ -36,3 +36,24 @@ export function deleteBlog(id, access) {
     }
   }
 }
+
+export async function addToBookmark(blogId, userId) {
+  try {
+    const newBlog = {
+      blogId,
+      userId,
+    };
+    let res = await fetch("/users/addBookmark", {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newBlog),
+    });
+    let data = await res.json();
+    return data;
+  } catch (error) {
+    alert(error.msg);
+  }
+}

@@ -1,5 +1,6 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("./../models/Users");
+const Bookmark = require("./../models/Bookmarks");
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET_ID = process.env.GOOGLE_CLIENT_SECRET_ID;
@@ -27,6 +28,10 @@ module.exports = function (passport) {
             done(null, user);
           } else {
             user = await User.create(newUser);
+            await Bookmark.create({
+              user: user._id,
+              blogs: [],
+            });
             done(null, user);
           }
         } catch (error) {

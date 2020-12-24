@@ -1,1 +1,10 @@
 GET http://localhost:7781/user
+
+###
+PATCH  http://localhost:7781/users/addBookmark
+Content-Type: application/json
+
+{
+    "blogId":"12313",
+    "userId":"7868"
+}

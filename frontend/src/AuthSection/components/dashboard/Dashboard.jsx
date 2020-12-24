@@ -20,6 +20,7 @@ function Dashboard() {
     console.log(data);
     setAllBlogs(data.blogs);
     setDisplayBlogs(data.blogs);
+    setSavedBlogs(data.savedBlogs);
   };
 
   useEffect(() => {
@@ -42,7 +43,7 @@ function Dashboard() {
         );
       case "saved":
       default:
-        return setDisplayBlogs(allBlogs);
+        return setDisplayBlogs(savedBlogs);
     }
   };
 
@@ -78,6 +79,7 @@ function Dashboard() {
                   key={blog._id}
                   blog={blog}
                   access={user._id === blog.user._id}
+                  userId={user._id}
                   isProfile={true}
                 />
               ))

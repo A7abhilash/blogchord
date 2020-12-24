@@ -5,9 +5,9 @@ const BookmarkSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  blog: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Blog",
+  blogs: {
+    type: Array,
+    required: true,
   },
 });
 

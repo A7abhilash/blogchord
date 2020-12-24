@@ -33,13 +33,21 @@ router.get("/auth/:id", ensureAuth, async (req, res) => {
         .populate("user")
         .sort({ createdAt: "desc" })
         .lean();
-      // const savedBlogs = await Bookmark.find({ user: req.params.id })
-      //   .populate("blog")
-      //   .populate("user")
-      //   .sort({ createdAt: "desc" })
-      //   .lean();
-      // console.log(savedBlogs);
-      return res.status(200).json({ blogs });
+      const savedBlogsList = await Bookmark.findOne({ user: req.params.id });
+      // console.log(savedBlogsList);
+      const allBlogs = await Blog.find();
+      // console.log(allBlogs);
+      const savedBlogs = [];
+      if (savedBlogsList) {
+        savedBlogsList.blogs.forEach((blogId) => {
+          savedBlogs.push(
+            allBlogs.filter((blog) => blog._id.toString() === blogId.toString())
+          );
+          // if (allBlogs._id.toString()===blogId) {
+          // }
+        });
+      }
+      return res.status(200).json({ blogs, savedBlogs, savedBlogsList });
     }
     res.status(400).json({ msg: "404 Error" });
   } catch (error) {
@@ -49,3 +57,37 @@ router.get("/auth/:id", ensureAuth, async (req, res) => {
 });
 
 module.exports = router;
+
+//*route    /users/addBookmark
+//*desc     add new blog to bookmark
+router.patch("/addBookmark", ensureAuth, async (req, res) => {
+  try {
+    if (req.body.userId.toString() !== req.user.id.toString()) {
+      return res.status(400).json({ msg: "404 Error" });
+    }
+    try {
+      const blogToBeSaved = await Blog.findById(req.body.blogId);
+      if (blogToBeSaved) {
+        const savedBlogsList = await Bookmark.findOne({
+          user: req.body.userId,
+        });
+        // console.log(savedBlogsList.blogs);
+        if (!savedBlogsList.blogs.includes(req.body.blogId)) {
+          savedBlogsList.blogs.unshift(req.body.blogId); //= [,...savedBlogsList]
+          await Bookmark.findOneAndUpdate(
+            { user: req.body.userId },
+            savedBlogsList
+          );
+          return res.status(200).json({ msg: "Saved new blog." });
+        }
+        res.status(200).json({ msg: "Blog is already saved." });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ msg: "404 Error" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Server Error" });
+  }
+});

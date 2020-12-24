@@ -56,6 +56,7 @@ function Home() {
                   key={blog._id}
                   blog={blog}
                   access={user._id === blog.user._id}
+                  userId={user._id}
                   isProfile={false}
                 />
               ))
