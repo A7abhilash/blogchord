@@ -43,8 +43,8 @@ function BlogsContainer({ displayBlogs, isProfile }) {
     } else alert("Blog wasn't saved");
   };
 
-  return blogs.length ? (
-    blogs.map((blog) => (
+  return displayBlogs.length ? (
+    displayBlogs.map((blog) => (
       <Card
         key={blog._id}
         blog={blog}

@@ -30,7 +30,7 @@ module.exports = function (passport) {
             user = await User.create(newUser);
             await Bookmark.create({
               user: user._id,
-              blogs: [""],
+              blogs: [user._id.toString()],
             });
             done(null, user);
           }

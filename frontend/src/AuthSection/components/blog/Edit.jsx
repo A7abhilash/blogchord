@@ -16,26 +16,29 @@ function Edit(props) {
   const [response, setResponse] = useState(0);
 
   const editBlog = (event) => {
-    setResponse("");
     event.preventDefault();
-    let blog = {
-      title: titleRef.current.value,
-      status: statusRef.current.value,
-      body,
-      user: user._id,
-    };
-    // console.log(newBlog);
-    fetch(`/blogs/edit/${props.match.params.id}`, {
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(blog),
-    }).then((res) => {
-      // console.log(res.status);
-      setResponse(res.status);
-    });
+    if (body) {
+      setResponse("");
+      event.preventDefault();
+      let blog = {
+        title: titleRef.current.value,
+        status: statusRef.current.value,
+        body,
+        user: user._id,
+      };
+      // console.log(newBlog);
+      fetch(`/blogs/edit/${props.match.params.id}`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(blog),
+      }).then((res) => {
+        // console.log(res.status);
+        setResponse(res.status);
+      });
+    }
   };
 
   useEffect(() => {

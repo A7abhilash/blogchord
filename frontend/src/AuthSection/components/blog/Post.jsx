@@ -12,26 +12,29 @@ function Post() {
   const [response, setResponse] = useState(0);
 
   const postBlog = (event) => {
-    setResponse("");
     event.preventDefault();
-    let newBlog = {
-      title: titleRef.current.value,
-      status: statusRef.current.value,
-      body,
-      user: user._id,
-    };
-    // console.log(newBlog);
-    fetch("/blogs/post", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newBlog),
-    }).then((res) => {
-      // console.log(res.status);
-      setResponse(res.status);
-    });
+    if (body) {
+      setResponse("");
+      event.preventDefault();
+      let newBlog = {
+        title: titleRef.current.value,
+        status: statusRef.current.value,
+        body,
+        user: user._id,
+      };
+      // console.log(newBlog);
+      fetch("/blogs/post", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newBlog),
+      }).then((res) => {
+        // console.log(res.status);
+        setResponse(res.status);
+      });
+    }
   };
 
   return (

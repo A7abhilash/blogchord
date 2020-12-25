@@ -14,7 +14,6 @@ function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("all");
   const [displayBlogs, setDisplayBlogs] = useState([]);
   const [savedBlogs, setSavedBlogs] = useState([]);
-  const [savedBlogsList, setSavedBlogsList] = useState([]);
 
   const fetchBlogs = async () => {
     const data = await getLoggedInUserDetails(user._id);
@@ -22,7 +21,6 @@ function Dashboard() {
     setAllBlogs(data.blogs);
     setDisplayBlogs(data.blogs);
     setSavedBlogs(data.savedBlogs);
-    setSavedBlogsList(data.savedBlogsList.blogs);
   };
 
   useEffect(() => {

@@ -7,6 +7,7 @@ const BookmarkSchema = new mongoose.Schema({
   },
   blogs: {
     type: Array,
+    default: [],
   },
 });
 
