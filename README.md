@@ -8,8 +8,8 @@
 - [x] 1. Post/Edit your blogs
 - [x] 2. Keep your blog post in private or public status
 - [x] 3. Profile Visit
-- [ ] 4. Likes
-- [ ] 5. Save posts(Bookmark)
+- [x] 4. Save posts(Bookmark)
+- [ ] 5. Likes
 - [ ] 6. Notifications(in site)
 
 ### Technologies
