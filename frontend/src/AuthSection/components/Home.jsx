@@ -60,12 +60,7 @@ function Home() {
         <Loader height="50" />
       ) : (
         <div className="row">
-          {blogs && (
-            <BlogsContainer
-              displayBlogs={blogs}
-              savedBlogsList={savedBlogsList}
-            />
-          )}
+          {blogs && <BlogsContainer displayBlogs={blogs} isProfile={false} />}
         </div>
       )}
     </motion.div>

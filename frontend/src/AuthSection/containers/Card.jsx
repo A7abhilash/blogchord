@@ -55,14 +55,13 @@ function Card({
                 variants={starVariant}
                 whileHover="hover"
                 whileTap="tap"
-                className={`${isBookmarked}? fas fa-star : far fa-star`}
+                className={`${isBookmarked ? "fas fa-star" : "far fa-star"}`}
                 onClick={
                   isBookmarked
                     ? () => removeBookmark(blog._id)
                     : () => addBookmark(blog._id)
                 }
               ></motion.i>
-              {/* <i className="fas fa-star"></i> */}
             </h6>
           )}
         </div>

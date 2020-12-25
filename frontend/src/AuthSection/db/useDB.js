@@ -52,12 +52,12 @@ export async function addToBookmark(blogId, userId) {
 }
 
 export async function updateBookmark(updatedList, userId) {
-  console.log(updatedList);
   try {
     const updateList = {
       blogs: updatedList,
       userId,
     };
+    // console.log(updateList);
     let res = await fetch("/users/bookmarks", {
       method: "PATCH",
       headers: {

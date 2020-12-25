@@ -18,7 +18,7 @@ function Dashboard() {
 
   const fetchBlogs = async () => {
     const data = await getLoggedInUserDetails(user._id);
-    console.log(data);
+    // console.log(data);
     setAllBlogs(data.blogs);
     setDisplayBlogs(data.blogs);
     setSavedBlogs(data.savedBlogs);
@@ -75,10 +75,7 @@ function Dashboard() {
         )}
         <div className="row">
           {displayBlogs && (
-            <BlogsContainer
-              displayBlogs={displayBlogs}
-              savedBlogsList={savedBlogsList}
-            />
+            <BlogsContainer displayBlogs={displayBlogs} isProfile={true} />
           )}
         </div>
       </div>
