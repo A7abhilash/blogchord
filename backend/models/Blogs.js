@@ -14,6 +14,10 @@ const BlogSchema = new mongoose.Schema({
     default: "Public",
     enum: ["Public", "Private"],
   },
+  likes: {
+    type: Array,
+    default: [],
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

@@ -15,11 +15,11 @@ function Post() {
     event.preventDefault();
     if (body) {
       setResponse("");
-      event.preventDefault();
       let newBlog = {
         title: titleRef.current.value,
         status: statusRef.current.value,
         body,
+        likes: [user._id.toString()],
         user: user._id,
       };
       // console.log(newBlog);

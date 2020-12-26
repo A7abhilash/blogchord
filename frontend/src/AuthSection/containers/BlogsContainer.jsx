@@ -5,6 +5,7 @@ import {
   updateBookmark,
   deleteBlog,
   getLoggedInUserDetails,
+  updateLikes,
 } from "../db/useDB";
 import Card from "./Card";
 
@@ -43,6 +44,28 @@ function BlogsContainer({ displayBlogs, isProfile }) {
     } else alert("Blog wasn't saved");
   };
 
+  const likeBlog = async (blog) => {
+    console.log(blog);
+    let updatedLikes = {
+      likes: [...blog.likes, user._id],
+      user: user._id,
+    };
+    console.log(updatedLikes);
+    // blog["likes"] = [...blog.likes, user._id];
+    // console.log(blog);
+    await updateLikes(updatedLikes, blog._id);
+  };
+
+  const dislikeBlog = async (blog) => {
+    console.log(blog);
+    let updatedLikes = {
+      likes: blog.likes.filter((id) => id !== user._id),
+      user: user._id,
+    };
+    console.log(updatedLikes);
+    await updateLikes(updatedLikes, blog._id);
+  };
+
   return displayBlogs.length ? (
     displayBlogs.map((blog) => (
       <Card
@@ -54,6 +77,10 @@ function BlogsContainer({ displayBlogs, isProfile }) {
         isBookmarked={savedLists.includes(blog._id)}
         deleteBlog={deleteBlog}
         removeBookmark={removeBookmark}
+        likes={blog.likes}
+        isLiked={blog.likes.includes(user._id)}
+        likeBlog={likeBlog}
+        dislikeBlog={dislikeBlog}
       />
     ))
   ) : (

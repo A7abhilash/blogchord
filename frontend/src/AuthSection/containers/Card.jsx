@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -6,11 +6,33 @@ function Card({
   blog,
   access,
   isProfile,
-  addBookmark,
   deleteBlog,
+  addBookmark,
   isBookmarked,
   removeBookmark,
+  likes,
+  isLiked,
+  likeBlog,
+  dislikeBlog,
 }) {
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    setLiked(isLiked);
+  }, []);
+
+  const onLike = (blogToBeLiked) => {
+    console.log("Like");
+    setLiked(true);
+    likeBlog(blogToBeLiked);
+  };
+
+  const onDislike = (blogToBeDisliked) => {
+    console.log("Dislike");
+    setLiked(false);
+    dislikeBlog(blogToBeDisliked);
+  };
+
   return (
     <motion.div
       variants={cardVariant}
@@ -84,15 +106,23 @@ function Card({
           >
             Read
           </Link>
-          <div className="ml-auto">
-            <motion.i
-              variants={heartVariant}
-              whileHover="hover"
-              whileTap="tap"
-              className="far fa-heart fa-lg options text-warning"
-            ></motion.i>
-            <span className="text-muted ml-1">(0)</span>
-          </div>
+          <h6 className="ml-auto text-warning options">
+            {access ? (
+              <i className="fas fa-heart fa-lg "></i>
+            ) : (
+              <motion.i
+                variants={heartVariant}
+                whileHover="hover"
+                whileTap="tap"
+                className={`${
+                  liked ? "fas fa-heart fa-lg" : "far fa-heart fa-lg"
+                }`}
+                onClick={liked ? () => onDislike(blog) : () => onLike(blog)}
+              ></motion.i>
+            )}
+
+            <span className="text-muted ml-1">({likes.length})</span>
+          </h6>
         </div>
       </div>
     </motion.div>

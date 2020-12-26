@@ -15,11 +15,10 @@ function Edit(props) {
   const [body, setBody] = useState("");
   const [response, setResponse] = useState(0);
 
-  const editBlog = (event) => {
+  const editBlog = async (event) => {
     event.preventDefault();
     if (body) {
       setResponse("");
-      event.preventDefault();
       let blog = {
         title: titleRef.current.value,
         status: statusRef.current.value,

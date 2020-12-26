@@ -9,6 +9,24 @@ export async function getLoggedInUserDetails(id) {
   }
 }
 
+export async function updateLikes(updatedLikes, blogId) {
+  try {
+    let res = await fetch(`/blogs/updateLikes/${blogId}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedLikes),
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+    alert(error.msg);
+    return { status: 500 };
+  }
+}
+
 export function deleteBlog(id, access) {
   if (access) {
     if (window.confirm("Are you sure to delete this blog?")) {

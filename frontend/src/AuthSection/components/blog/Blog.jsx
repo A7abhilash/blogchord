@@ -20,7 +20,7 @@ function Blog(props) {
     fetch(`/blogs/read/${props.match.params.id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setBlog(data);
         setLoading(false);
         setError(false);
