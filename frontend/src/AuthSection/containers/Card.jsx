@@ -16,20 +16,24 @@ function Card({
   dislikeBlog,
 }) {
   const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(false);
 
   useEffect(() => {
     setLiked(isLiked);
+    setLikesCount(likes.length);
   }, []);
 
   const onLike = (blogToBeLiked) => {
-    console.log("Like");
+    // console.log("Like");
     setLiked(true);
+    setLikesCount((prev) => prev + 1);
     likeBlog(blogToBeLiked);
   };
 
   const onDislike = (blogToBeDisliked) => {
-    console.log("Dislike");
+    // console.log("Dislike");
     setLiked(false);
+    setLikesCount((prev) => prev - 1);
     dislikeBlog(blogToBeDisliked);
   };
 
@@ -39,7 +43,7 @@ function Card({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="col-md-5 card mx-2 mx-md-auto my-2 p-0 shadow-lg bg-dark rounded"
+      className="col-lg-5 card mx-2 mx-md-auto my-2 p-0 shadow-lg bg-dark rounded"
     >
       <div
         className={`card-header ${
@@ -106,7 +110,7 @@ function Card({
           >
             Read
           </Link>
-          <h6 className="ml-auto text-warning options">
+          <h6 className="ml-auto text-warning">
             {access ? (
               <i className="fas fa-heart fa-lg "></i>
             ) : (
@@ -118,10 +122,11 @@ function Card({
                   liked ? "fas fa-heart fa-lg" : "far fa-heart fa-lg"
                 }`}
                 onClick={liked ? () => onDislike(blog) : () => onLike(blog)}
+                style={{ cursor: "pointer" }}
               ></motion.i>
             )}
 
-            <span className="text-muted ml-1">({likes.length})</span>
+            <span className="text-muted ml-1">({likesCount})</span>
           </h6>
         </div>
       </div>

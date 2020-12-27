@@ -63,7 +63,7 @@ router.patch("/edit/:id", ensureAuth, async (req, res) => {
 //*desc     update likes on a blog
 router.patch("/updateLikes/:id", ensureAuth, async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     let blog = await Blog.findById(req.params.id);
     if (!blog) {
       return res.status(400).json({ msg: "404 Error" });

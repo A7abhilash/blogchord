@@ -13,9 +13,8 @@ function BlogsContainer({ displayBlogs, isProfile }) {
   const { user } = useAuth();
   const [blogs, setBlogs] = useState([]);
   const [savedLists, setSavedLists] = useState([]);
-  //   console.log(displayBlogs);
+
   useEffect(() => {
-    console.log("useEffect called");
     initialSetup();
   }, []);
   const initialSetup = async () => {
@@ -45,25 +44,23 @@ function BlogsContainer({ displayBlogs, isProfile }) {
   };
 
   const likeBlog = async (blog) => {
-    console.log(blog);
-    let updatedLikes = {
-      likes: [...blog.likes, user._id],
-      user: user._id,
-    };
-    console.log(updatedLikes);
-    // blog["likes"] = [...blog.likes, user._id];
-    // console.log(blog);
-    await updateLikes(updatedLikes, blog._id);
+    console.log(blog.likes);
+    if (!blog.likes.includes(user._id)) {
+      let updatedLikes = {
+        likes: [...blog.likes, user._id],
+      };
+      setBlogs(blogs);
+      await updateLikes(updatedLikes, blog._id);
+    }
   };
 
   const dislikeBlog = async (blog) => {
-    console.log(blog);
-    let updatedLikes = {
-      likes: blog.likes.filter((id) => id !== user._id),
-      user: user._id,
-    };
-    console.log(updatedLikes);
-    await updateLikes(updatedLikes, blog._id);
+    if (blog.likes.includes(user._id)) {
+      let updatedLikes = {
+        likes: blog.likes.filter((id) => id !== user._id),
+      };
+      await updateLikes(updatedLikes, blog._id);
+    }
   };
 
   return displayBlogs.length ? (
