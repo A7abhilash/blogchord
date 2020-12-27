@@ -62,7 +62,7 @@ function ProfileVisit(props) {
       exit="exit"
       className="row"
     >
-      <div className="col-md-3 border-right border-secondary my-2">
+      <div className="col-md-3 user-profile mx-2 my-2">
         <UserProfile user={profile} />
       </div>
       <div className="col-md-8 mx-auto my-2">

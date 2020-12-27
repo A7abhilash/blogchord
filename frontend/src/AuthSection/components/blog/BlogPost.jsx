@@ -41,7 +41,7 @@ function BlogPost({ type, handleSubmit, titleRef, statusRef, body, setBody }) {
             <option value="Private">Private</option>
             <option value="Public">Public</option>
           </select>
-          <p className="text-muted pl-1">
+          <p className="pl-1">
             <strong>TIP: </strong> Set private status if you want to save your
             blog as draft.
           </p>
@@ -53,6 +53,10 @@ function BlogPost({ type, handleSubmit, titleRef, statusRef, body, setBody }) {
             value={body}
             onChange={(value) => setBody(value)}
           />
+          <p className="text-muted pl-1">
+            <strong>PS: </strong> Your blog is liked as default by you and it
+            can't be disliked.
+          </p>
         </div>
         <div className="form-group my-2">
           <button type="submit" className="btn btn-sm btn-success float-right">

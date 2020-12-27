@@ -55,7 +55,7 @@ function Dashboard() {
       exit="exit"
       className="row"
     >
-      <div className="col-md-3 my-2 border-right border-secondary">
+      <div className="col-md-3 my-2 user-profile mx-2">
         <UserProfile user={user} />
       </div>
       <div className="col-md-8 my-2 mx-auto">

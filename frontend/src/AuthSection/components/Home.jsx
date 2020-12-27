@@ -51,7 +51,7 @@ function Home() {
       className="col-md-8 mx-auto"
     >
       <div className="d-flex align-items-center my-2">
-        <h4>Blogs</h4>
+        <h4>Recent Blogs</h4>
         <Link to="/post" className="btn btn-sm btn-info ml-auto pb-0">
           <h6>Post a blog</h6>
         </Link>

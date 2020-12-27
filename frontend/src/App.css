@@ -32,3 +32,14 @@ body {
 .options:hover {
   color: #eeeeee;
 }
+
+@media screen and (max-width: 768px) {
+  .user-profile {
+    border-bottom: 1px solid #6c757d;
+  }
+}
+@media screen and (min-width: 769px) {
+  .user-profile {
+    border-right: 1px solid #6c757d;
+  }
+}
