@@ -81,7 +81,7 @@ function BlogsContainer({ displayBlogs, isProfile }) {
       />
     ))
   ) : (
-    <p className="text-muted">No blog found.</p>
+    <p className="text-muted mx-auto">No blog found.</p>
   );
 }
 

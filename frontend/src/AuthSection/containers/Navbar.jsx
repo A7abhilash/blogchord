@@ -8,7 +8,7 @@ const BACKEND_URL = "http://localhost:7781";
 function Navbar() {
   const { user } = useAuth();
   return (
-    <nav className="navbar navbar-expand-md bg-gray shadow-md">
+    <nav className="navbar navbar-expand-md bg-gray shadow-md py-0">
       <div className="container">
         <Link
           to="/"
@@ -21,16 +21,16 @@ function Navbar() {
             animate="visible"
             alt="blogchord"
             className="img-fluid mr-1"
-            style={{ height: 50 }}
+            style={{ height: 40 }}
           />
-          <motion.h1
+          <motion.h3
             variants={headerTitle}
             initial="hidden"
             animate="visible"
             id="header-title"
           >
             Blogchord
-          </motion.h1>
+          </motion.h3>
         </Link>
         {user && (
           <>
@@ -44,22 +44,25 @@ function Navbar() {
             <div className="collapse navbar-collapse" id="navbar">
               <ul className="navbar-nav ml-auto mr-2 align-items-center">
                 <li className="nav-item mx-md-2 my-1">
-                  <Link to="/" className="nav-link text-light">
-                    <h5>Blogs</h5>
+                  <Link to="/" className="nav-link text-light d-flex">
+                    <i className="fas fa-home fa-lg pt-1"></i>
+                    <h5 className="d-md-none ml-2">Blogs</h5>
                   </Link>
                 </li>
                 <li className="nav-item mx-md-2 my-1">
-                  <Link to="/dashboard" className="nav-link text-light">
-                    <h5>My profile</h5>
+                  <Link to="/dashboard" className="nav-link text-light d-flex">
+                    <i className="fas fa-user-circle fa-lg pt-1"></i>
+                    <h5 className="d-md-none ml-2 pb-1">My profile</h5>
                   </Link>
                 </li>
                 <li className="nav-item mx-md-2 my-1">
                   <a
                     role="button"
                     href={`${BACKEND_URL}/auth/logout`}
-                    className="btn btn-sm btn-secondary text-light pb-0"
+                    className="btn btn-sm btn-secondary text-light pb-md-2 d-flex"
                   >
-                    <h6>Sign out</h6>
+                    <i className="fas fa-sign-out-alt my-1 my-md-0 pt-md-1"></i>
+                    <h6 className="d-md-none ml-2 ">Sign out</h6>
                   </a>
                 </li>
               </ul>
