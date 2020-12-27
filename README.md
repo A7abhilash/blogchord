@@ -9,7 +9,7 @@
 - [x] 2. Keep your blog post in private or public status
 - [x] 3. Profile Visit
 - [x] 4. Save posts(Bookmark)
-- [ ] 5. Likes
+- [x] 5. Likes
 - [ ] 6. Notifications(in site)
 
 ### Technologies
