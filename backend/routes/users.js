@@ -41,8 +41,22 @@ router.get("/auth/:id", ensureAuth, async (req, res) => {
       if (savedBlogsList) {
         savedBlogsList.blogs.forEach((blogId) => {
           allBlogs.forEach((blog) => {
-            if (blog._id.toString() === blogId) {
-              savedBlogs.push(blog);
+            if (
+              blog._id.toString() === blogId &&
+              blog._id.toString() !== req.params.id.toString()
+            ) {
+              if (blog.status === "Public") {
+                savedBlogs.push(blog);
+              } else {
+                // console.log(blogId);
+                let item = {
+                  _id: blogId,
+                  body:
+                    "This blog has been deleted or turned into a private blog by the author.",
+                  status: "NotFound",
+                };
+                savedBlogs.push(item);
+              }
             }
           });
         });

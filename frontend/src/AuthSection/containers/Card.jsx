@@ -76,12 +76,13 @@ function Card({
               </h6>
             </>
           ) : (
-            <h6 className="text-primary m-1 options">
+            <h6 className="text-primary m-1">
               <motion.i
                 variants={starVariant}
                 whileHover="hover"
                 whileTap="tap"
                 className={`${isBookmarked ? "fas fa-star" : "far fa-star"}`}
+                style={{ cursor: "pointer" }}
                 onClick={
                   isBookmarked
                     ? () => removeBookmark(blog._id)

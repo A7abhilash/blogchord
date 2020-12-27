@@ -8,6 +8,7 @@ import {
   updateLikes,
 } from "../db/useDB";
 import Card from "./Card";
+import CardNotFound from "./CardNotFound";
 
 function BlogsContainer({ displayBlogs, isProfile }) {
   const { user } = useAuth();
@@ -64,22 +65,33 @@ function BlogsContainer({ displayBlogs, isProfile }) {
   };
 
   return displayBlogs.length ? (
-    displayBlogs.map((blog) => (
-      <Card
-        key={blog._id}
-        blog={blog}
-        access={user._id === blog.user._id}
-        isProfile={isProfile}
-        addBookmark={addBookmark}
-        isBookmarked={savedLists.includes(blog._id)}
-        deleteBlog={deleteBlog}
-        removeBookmark={removeBookmark}
-        likes={blog.likes}
-        isLiked={blog.likes.includes(user._id)}
-        likeBlog={likeBlog}
-        dislikeBlog={dislikeBlog}
-      />
-    ))
+    displayBlogs.map((blog) =>
+      blog.status === "NotFound" ? (
+        <CardNotFound
+          key={blog._id}
+          blog={blog}
+          access={true}
+          addBookmark={addBookmark}
+          isBookmarked={savedLists.includes(blog._id)}
+          removeBookmark={removeBookmark}
+        />
+      ) : (
+        <Card
+          key={blog._id}
+          blog={blog}
+          access={user._id === blog.user._id}
+          isProfile={isProfile}
+          addBookmark={addBookmark}
+          isBookmarked={savedLists.includes(blog._id)}
+          removeBookmark={removeBookmark}
+          deleteBlog={deleteBlog}
+          likes={blog.likes}
+          isLiked={blog.likes.includes(user._id)}
+          likeBlog={likeBlog}
+          dislikeBlog={dislikeBlog}
+        />
+      )
+    )
   ) : (
     <p className="text-muted mx-auto">No blog found.</p>
   );
