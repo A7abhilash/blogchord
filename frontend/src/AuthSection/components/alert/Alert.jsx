@@ -66,7 +66,7 @@ const alertBoxStyle = {
   left: 0,
   width: "100%",
   height: "10%",
-  zIndex: 1000,
+  zIndex: 10,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
