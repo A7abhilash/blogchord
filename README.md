@@ -10,7 +10,7 @@
 - [x] 3. Profile Visit
 - [x] 4. Save posts(Bookmark)
 - [x] 5. Likes
-- [ ] 6. Alerts(in site)
+- [x] 6. Alerts(in site)
 
 <!-- - [ ] 6. Notifications
 - [ ] 6. Follow requests (or) Followers/Following -->
