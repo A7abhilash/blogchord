@@ -33,14 +33,13 @@ router.get("/", ensureAuth, async (req, res) => {
 //*desc     Display all public blogs
 router.get("/read/:id", ensureAuth, async (req, res) => {
   try {
-    try {
-      const blog = await Blog.findById(req.params.id).populate("user").lean();
-      res.status(200).json(blog);
-    } catch (error) {
-      res.status(400).json({ msg: "404 Error" });
+    const blog = await Blog.findById(req.params.id).populate("user").lean();
+    if (!blog) {
+      return res.status(400).json({ msg: "404 Error" });
     }
+    return res.status(200).json({ blog });
   } catch (error) {
-    res.status(500).json({ msg: "Server error, Please try later." });
+    return res.status(500).json({ msg: "Server error, Please try later." });
   }
 });
 
@@ -85,10 +84,10 @@ router.delete("/delete/:id", ensureAuth, async (req, res) => {
   try {
     let blog = await Blog.findById(req.params.id);
     if (!blog) {
-      return res.status(400);
+      return res.status(400).json({ msg: "404 Error" });
     }
     if (blog.user.toString() !== req.user.id.toString()) {
-      return res.status(400);
+      return res.status(400).json({ msg: "404 Error" });
     }
     await blog.deleteOne(req.body);
     res.status(200).json({ msg: "Deleted blog 👀" });
