@@ -7,7 +7,6 @@ import Routes from "./containers/Routes";
 import Navbar from "./AuthSection/containers/Navbar";
 
 function App() {
-  // const location = useLocation();
   const { loading } = useAuth();
 
   return loading ? (

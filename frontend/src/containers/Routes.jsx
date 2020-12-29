@@ -11,12 +11,14 @@ import Home from "../AuthSection/components/Home";
 import ProfileVisit from "../AuthSection/components/user/ProfileVisit";
 import GuestSection from "../GuestSection/GuestSection";
 import AuthRoute from "./AuthRoute";
+import Alert from "../AuthSection/components/alert/Alert";
 
 function Routes() {
   const location = useLocation();
   const { user } = useAuth();
   return (
-    <div className="container mt-5">
+    <div className="container mt-3">
+      {user && <Alert />}
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
           <Route exact path="/">

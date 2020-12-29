@@ -10,7 +10,7 @@ router.get("/:id", ensureAuth, async (req, res) => {
   try {
     try {
       const user = await User.findById(req.params.id);
-      const blogs = await Blog.find({ user: req.params.id })
+      const blogs = await Blog.find({ user: req.params.id, status: "Public" })
         .populate("user")
         .sort({ createdAt: "desc" })
         .lean();

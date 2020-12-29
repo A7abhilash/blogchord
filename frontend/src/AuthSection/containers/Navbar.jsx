@@ -8,7 +8,7 @@ const BACKEND_URL = "http://localhost:7781";
 function Navbar() {
   const { user } = useAuth();
   return (
-    <nav className="navbar navbar-expand-md bg-gray shadow-md py-0">
+    <nav className="navbar navbar-expand-md bg-gray shadow-md py-0 my-1">
       <div className="container">
         <Link
           to="/"
@@ -95,5 +95,18 @@ const headerTitle = {
   visible: {
     opacity: 1,
     transition: { duration: 1 },
+  },
+};
+
+const bellVariant = {
+  visible: {
+    rotateZ: [0, -20, 20, -20, 0],
+    transition: { delay: 0.5, yoyo: Infinity },
+  },
+  onHover: {
+    scale: 1.1,
+  },
+  onTap: {
+    scale: 0.8,
   },
 };

@@ -53,8 +53,8 @@ function BlogPost({ type, handleSubmit, titleRef, statusRef, body, setBody }) {
             value={body}
             onChange={(value) => setBody(value)}
           />
-          <p className="text-muted pl-1">
-            <strong>PS: </strong> Your blog is liked as default by you and it
+          <p className="text-danger pl-1">
+            <strong>*</strong> Your blog will be liked by you as default and it
             can't be disliked.
           </p>
         </div>
