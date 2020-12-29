@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
+import { useAlert } from "../../contexts/AlertContext";
 
 function Alert() {
-  const [show, setShow] = useState(false);
+  const { alert, setAlert } = useAlert();
 
   useEffect(() => {
-    setShow(true);
+    console.log(alert);
     setTimeout(() => {
-      setShow(false);
+      setAlert("");
     }, 4000);
   }, []);
 
   return (
     <AnimatePresence exitBeforeEnter>
-      {show && (
+      {alert && (
         <div style={alertBoxStyle}>
           <motion.div
             variants={alertVariants}
@@ -23,7 +24,7 @@ function Alert() {
             exit="exit"
             className="col-md-4 mx-2 mx-md-auto bg-light rounded px-0 text-dark d-block"
           >
-            <h4 className="p-2">Welcome</h4>
+            <h4 className="p-2">{alert}</h4>
             <motion.div variants={borderVariant}></motion.div>
           </motion.div>
         </div>

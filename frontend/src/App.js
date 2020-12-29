@@ -5,6 +5,7 @@ import { useAuth } from "./contexts/AuthContext";
 import Loader from "./containers/Loader";
 import Routes from "./containers/Routes";
 import Navbar from "./AuthSection/containers/Navbar";
+import AlertProvider from "./AuthSection/contexts/AlertContext";
 
 function App() {
   const { loading } = useAuth();
@@ -14,8 +15,10 @@ function App() {
   ) : (
     <>
       <Router>
-        <Navbar />
-        <Routes />
+        <AlertProvider>
+          <Navbar />
+          <Routes />
+        </AlertProvider>
       </Router>
     </>
   );
