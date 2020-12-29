@@ -25,7 +25,7 @@ function Alert() {
             exit="exit"
             className="col-md-4 mx-2 mx-md-auto bg-light rounded px-0 text-dark d-block"
           >
-            <h6 className="p-2">{alert}</h6>
+            <h6 className="pt-2 pb-1 text-center">{alert}</h6>
             <motion.div variants={borderVariant}></motion.div>
           </motion.div>
         </div>

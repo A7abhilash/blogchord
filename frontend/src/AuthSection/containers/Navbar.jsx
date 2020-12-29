@@ -8,7 +8,7 @@ const BACKEND_URL = "http://localhost:7781";
 function Navbar() {
   const { user } = useAuth();
   return (
-    <nav className="navbar navbar-expand-md bg-gray shadow-md py-1 my-1">
+    <nav className="navbar navbar-expand-md bg-gray shadow-md py-0 my-1">
       <div className="container">
         <Link
           to="/"
