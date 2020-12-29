@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
 import { useAlert } from "../../contexts/AlertContext";
 
 function Alert() {
@@ -8,10 +7,12 @@ function Alert() {
 
   useEffect(() => {
     console.log(alert);
-    setTimeout(() => {
-      setAlert("");
-    }, 4000);
-  }, []);
+    if (alert) {
+      setTimeout(() => {
+        setAlert("");
+      }, 4000);
+    }
+  }, [alert]);
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -24,7 +25,7 @@ function Alert() {
             exit="exit"
             className="col-md-4 mx-2 mx-md-auto bg-light rounded px-0 text-dark d-block"
           >
-            <h4 className="p-2">{alert}</h4>
+            <h6 className="p-2">{alert}</h6>
             <motion.div variants={borderVariant}></motion.div>
           </motion.div>
         </div>
@@ -44,7 +45,7 @@ const alertVariants = {
   },
   exit: {
     y: "-100vh",
-    transition: { ease: "easeInOut" },
+    transition: { ease: "easeInOut", duration: 0.8 },
   },
 };
 

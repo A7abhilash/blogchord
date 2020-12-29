@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { useAlert } from "../contexts/AlertContext";
 import {
   updateBookmark,
   deleteBlog,
@@ -12,6 +13,7 @@ import CardNotFound from "./CardNotFound";
 
 function BlogsContainer({ displayBlogs, isProfile }) {
   const { user } = useAuth();
+  const { setAlert } = useAlert();
   const [blogs, setBlogs] = useState([]);
   const [savedLists, setSavedLists] = useState([]);
 
@@ -29,7 +31,7 @@ function BlogsContainer({ displayBlogs, isProfile }) {
       let updatedList = [blogId, ...savedLists];
       let res = await updateBookmark(updatedList, user._id);
       setSavedLists(updatedList);
-      alert(res.msg);
+      setAlert(res.status === 200 ? "Bookmark added ★" : res.msg);
     } else alert("Blog is already saved");
   };
 
@@ -40,7 +42,7 @@ function BlogsContainer({ displayBlogs, isProfile }) {
       );
       let res = await updateBookmark(updatedList, user._id);
       setSavedLists(updatedList);
-      alert(res.msg);
+      setAlert(res.status === 200 ? "Bookmark removed ☆" : res.msg);
     } else alert("Blog wasn't saved");
   };
 
@@ -64,6 +66,15 @@ function BlogsContainer({ displayBlogs, isProfile }) {
     }
   };
 
+  const handleDelete = async (id, access) => {
+    if (access) {
+      if (window.confirm("Are you sure to delete this blog?")) {
+        let res = await deleteBlog(id);
+        setAlert(res.msg);
+      }
+    }
+  };
+
   return displayBlogs.length ? (
     displayBlogs.map((blog) =>
       blog.status === "NotFound" ? (
@@ -84,7 +95,7 @@ function BlogsContainer({ displayBlogs, isProfile }) {
           addBookmark={addBookmark}
           isBookmarked={savedLists.includes(blog._id)}
           removeBookmark={removeBookmark}
-          deleteBlog={deleteBlog}
+          handleDelete={handleDelete}
           likes={blog.likes}
           isLiked={blog.likes.includes(user._id)}
           likeBlog={likeBlog}

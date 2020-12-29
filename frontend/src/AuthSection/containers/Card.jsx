@@ -6,7 +6,7 @@ function Card({
   blog,
   access,
   isProfile,
-  deleteBlog,
+  handleDelete,
   addBookmark,
   isBookmarked,
   removeBookmark,
@@ -70,7 +70,7 @@ function Card({
               </Link>
               <h6
                 className="options m-1 text-dark"
-                onClick={() => deleteBlog(blog._id, access)}
+                onClick={() => handleDelete(blog._id, access)}
               >
                 <i className="fas fa-trash"></i>
               </h6>

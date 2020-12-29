@@ -86,13 +86,13 @@ router.patch("/bookmarks", ensureAuth, async (req, res) => {
       });
       // console.log(req.body);
       await savedBlogsList.updateOne(req.body);
-      return res.status(200).json({ msg: "Bookmarks updated" });
+      return res.status(200).json({ status: 200, msg: "Bookmarks updated" });
     } catch (error) {
       console.log(error);
-      res.status(400).json({ msg: "404 Error" });
+      res.status(400).json({ status: 400, msg: "404 Error" });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ status: 500, msg: "Server Error" });
   }
 });

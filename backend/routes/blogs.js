@@ -8,10 +8,10 @@ router.post("/post", ensureAuth, async (req, res) => {
   try {
     // console.log(req.body);
     await Blog.create(req.body);
-    res.status(200).json({ msg: "Blog posted" });
+    res.status(200).json({ msg: "New blog posted 👌." });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ msg: "Server error, Please try later." });
   }
 });
 
@@ -25,7 +25,7 @@ router.get("/", ensureAuth, async (req, res) => {
       .lean();
     res.status(200).json(blogs);
   } catch (error) {
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ msg: "Server error, Please try later." });
   }
 });
 
@@ -33,10 +33,14 @@ router.get("/", ensureAuth, async (req, res) => {
 //*desc     Display all public blogs
 router.get("/read/:id", ensureAuth, async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id).populate("user").lean();
-    res.status(200).json(blog);
+    try {
+      const blog = await Blog.findById(req.params.id).populate("user").lean();
+      res.status(200).json(blog);
+    } catch (error) {
+      res.status(400).json({ msg: "404 Error" });
+    }
   } catch (error) {
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ msg: "Server error, Please try later." });
   }
 });
 
@@ -44,7 +48,7 @@ router.get("/read/:id", ensureAuth, async (req, res) => {
 //*desc     Edit a blog
 router.patch("/edit/:id", ensureAuth, async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     let blog = await Blog.findById(req.params.id);
     if (!blog) {
       return res.status(400).json({ msg: "404 Error" });
@@ -53,9 +57,9 @@ router.patch("/edit/:id", ensureAuth, async (req, res) => {
       return res.status(400).json({ msg: "404 Error" });
     }
     await blog.updateOne(req.body);
-    res.status(200).json({ msg: "Edited blog" });
+    res.status(200).json({ msg: "Edited blog 👍" });
   } catch (error) {
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ msg: "Server error, Please try later." });
   }
 });
 
@@ -69,9 +73,9 @@ router.patch("/updateLikes/:id", ensureAuth, async (req, res) => {
       return res.status(400).json({ msg: "404 Error" });
     }
     await blog.updateOne(req.body);
-    res.status(200).json({ msg: "Edited blog" });
+    res.status(200).json({ msg: "Liked" });
   } catch (error) {
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ msg: "Server error, Please try later." });
   }
 });
 
@@ -87,9 +91,9 @@ router.delete("/delete/:id", ensureAuth, async (req, res) => {
       return res.status(400);
     }
     await blog.deleteOne(req.body);
-    res.status(200).json({ msg: "Deleted blog" });
+    res.status(200).json({ msg: "Deleted blog 👀" });
   } catch (error) {
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ msg: "Server error, Please try later." });
   }
 });
 

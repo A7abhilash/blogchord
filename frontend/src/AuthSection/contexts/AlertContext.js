@@ -8,7 +8,7 @@ export const useAlert = () => {
 };
 
 function AlertProvider({ children }) {
-  const [alert, setAlert] = useState("Hello");
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     console.log(alert);

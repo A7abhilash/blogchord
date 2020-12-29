@@ -5,9 +5,11 @@ import BlogPost from "./BlogPost";
 import Error from "./../error/Error";
 import Loader from "../../../containers/Loader";
 import { useEffect } from "react";
+import { useAlert } from "../../contexts/AlertContext";
 
 function Edit(props) {
   const { user } = useAuth();
+  const { setAlert } = useAlert();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const titleRef = useRef("");
@@ -33,10 +35,15 @@ function Edit(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(blog),
-      }).then((res) => {
-        // console.log(res.status);
-        setResponse(res.status);
-      });
+      })
+        .then((res) => {
+          // console.log(res.status);
+          setResponse(res.status);
+          return res.json();
+        })
+        .then((data) => {
+          setAlert(data.msg);
+        });
     }
   };
 
