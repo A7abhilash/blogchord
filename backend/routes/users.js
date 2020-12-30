@@ -52,7 +52,7 @@ router.get("/auth/:id", ensureAuth, async (req, res) => {
                 let item = {
                   _id: blogId,
                   body:
-                    "This blog has been deleted or turned into a private blog by the author.",
+                    "This blog has been deleted or turned into private status by the author.",
                   status: "NotFound",
                 };
                 savedBlogs.push(item);

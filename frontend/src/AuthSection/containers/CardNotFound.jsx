@@ -17,9 +17,9 @@ function CardNotFound({
       className="col-lg-5 card mx-2 mx-md-auto my-2 p-3 shadow-lg bg-dark rounded text-center"
     >
       <h1>
-        <i className="fas fa-exclamation-triangle"></i>
+        <i className="fas fa-exclamation-triangle text-danger"></i>
       </h1>
-      <h6 className="text-muted">{blog.body}</h6>
+      <h6 className="text-danger">{blog.body}</h6>
       {access && (
         <h6 className="text-primary m-1">
           Remove from bookmarks? <br />
