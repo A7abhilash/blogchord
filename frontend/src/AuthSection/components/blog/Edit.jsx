@@ -54,11 +54,16 @@ function Edit(props) {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
-        titleRef.current = data.title;
-        statusRef.current = data.status;
-        setBody(data.body);
+        if (!data.msg) {
+          titleRef.current = data.blog.title;
+          statusRef.current = data.blog.status;
+          setBody(data.blog.body);
+          setError(false);
+        } else {
+          setError(true);
+          setAlert(data.msg);
+        }
         setLoading(false);
-        setError(false);
       })
       .catch(() => {
         setError(true);
@@ -71,7 +76,7 @@ function Edit(props) {
   ) : (
     <>
       {response === 200 && <Redirect to={`/read/${props.match.params.id}`} />}
-      {response === 500 || response === 400 ? (
+      {response === 500 || response === 400 || error ? (
         <Error />
       ) : (
         <BlogPost

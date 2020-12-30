@@ -25,11 +25,8 @@ export function AuthProvider({ children }) {
       })
       .catch((error) => {
         console.log(error);
+        alert("Server error, Please try later.");
         setLoading(false);
-        // setTimeout(() => {
-        //   setUser({ image: "xyz", displayName: "A7" });
-        //   setLoading(false);
-        // }, 2000);
       });
   }, []);
 

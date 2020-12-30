@@ -30,14 +30,18 @@ router.get("/", ensureAuth, async (req, res) => {
 });
 
 //*route    /blogs/read/:id
-//*desc     Display all public blogs
+//*desc     Display a selected blog
 router.get("/read/:id", ensureAuth, async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id).populate("user").lean();
-    if (!blog) {
+    try {
+      const blog = await Blog.findById(req.params.id).populate("user").lean();
+      if (!blog) {
+        throw "Error";
+      }
+      return res.status(200).json({ blog });
+    } catch (error) {
       return res.status(400).json({ msg: "404 Error" });
     }
-    return res.status(200).json({ blog });
   } catch (error) {
     return res.status(500).json({ msg: "Server error, Please try later." });
   }

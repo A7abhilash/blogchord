@@ -18,7 +18,7 @@ function Routes() {
   const { user } = useAuth();
   return (
     <div className="container mt-3">
-      {user && <Alert />}
+      <Alert />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
           <Route exact path="/">

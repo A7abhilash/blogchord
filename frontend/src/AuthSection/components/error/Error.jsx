@@ -11,6 +11,7 @@ function Error() {
         style={imgStyle}
       />
       <h5>Something went wrong!</h5>
+      <p>Head back & refresh to continue.</p>
     </div>
   );
 }
