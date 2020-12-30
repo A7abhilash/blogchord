@@ -47,7 +47,6 @@ function BlogsContainer({ displayBlogs, isProfile }) {
   };
 
   const likeBlog = async (blog) => {
-    console.log(blog.likes);
     if (!blog.likes.includes(user._id)) {
       let updatedLikes = {
         likes: [...blog.likes, user._id],

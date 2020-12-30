@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 export const AlertContext = React.createContext();
 
@@ -10,9 +9,9 @@ export const useAlert = () => {
 function AlertProvider({ children }) {
   const [alert, setAlert] = useState("");
 
-  useEffect(() => {
-    console.log(alert);
-  }, [alert]);
+  // useEffect(() => {
+  //   console.log(alert);
+  // }, [alert]);
 
   return (
     <AlertContext.Provider value={{ alert, setAlert }}>

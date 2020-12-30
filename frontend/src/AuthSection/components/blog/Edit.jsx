@@ -44,7 +44,7 @@ function Edit(props) {
         .then((data) => {
           setAlert(data.msg);
         });
-    }
+    } else setAlert("No blank fields.");
   };
 
   useEffect(() => {

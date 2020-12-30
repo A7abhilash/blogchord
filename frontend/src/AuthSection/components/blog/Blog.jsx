@@ -22,7 +22,7 @@ function Blog(props) {
     fetch(`/blogs/read/${props.match.params.id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (!data.msg) {
           setBlog(data.blog);
           setError(false);

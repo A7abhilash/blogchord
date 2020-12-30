@@ -21,7 +21,9 @@ export function AuthProvider({ children }) {
           setUser(data.user);
           setAllBlogs(data.blogs);
         }
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       })
       .catch((error) => {
         console.log(error);

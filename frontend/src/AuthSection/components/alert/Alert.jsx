@@ -6,7 +6,7 @@ function Alert() {
   const { alert, setAlert } = useAlert();
 
   useEffect(() => {
-    console.log(alert);
+    // console.log(alert);
     if (alert) {
       setTimeout(() => {
         setAlert("");
