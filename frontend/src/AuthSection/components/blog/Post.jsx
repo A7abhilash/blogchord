@@ -8,6 +8,7 @@ import { useAlert } from "../../contexts/AlertContext";
 function Post() {
   const { user } = useAuth();
   const { setAlert } = useAlert();
+  const [disableButtons, setDisableButtons] = useState(false);
   const titleRef = useRef("");
   const statusRef = useRef("Public");
   const [body, setBody] = useState("");
@@ -15,8 +16,10 @@ function Post() {
 
   const postBlog = (event) => {
     event.preventDefault();
-    if (body) {
+    console.log(body);
+    if (body && body !== "<p><br></p>") {
       setResponse("");
+      setDisableButtons(true);
       let newBlog = {
         title: titleRef.current.value,
         status: statusRef.current.value,
@@ -58,6 +61,7 @@ function Post() {
             body={body}
             setBody={setBody}
             handleSubmit={postBlog}
+            disableButtons={disableButtons}
           />
         </div>
       )}

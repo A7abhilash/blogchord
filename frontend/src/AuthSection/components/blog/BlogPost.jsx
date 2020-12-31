@@ -4,7 +4,15 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { motion } from "framer-motion";
 
-function BlogPost({ type, handleSubmit, titleRef, statusRef, body, setBody }) {
+function BlogPost({
+  type,
+  handleSubmit,
+  titleRef,
+  statusRef,
+  body,
+  setBody,
+  disableButtons,
+}) {
   return (
     <motion.div
       variants={blogPostVariant}
@@ -59,10 +67,29 @@ function BlogPost({ type, handleSubmit, titleRef, statusRef, body, setBody }) {
           </p>
         </div>
         <div className="form-group my-2">
-          <button type="submit" className="btn btn-sm btn-success float-right">
-            Publish
+          <button
+            type="submit"
+            className="btn btn-sm btn-success float-right"
+            disabled={disableButtons}
+          >
+            {disableButtons ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm mr-1"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Publishing...</span>
+              </>
+            ) : (
+              "Publish"
+            )}
           </button>
-          <Link to="/dashboard" className="btn btn-sm btn-secondary float-left">
+          <Link
+            to="/dashboard"
+            className="btn btn-sm btn-secondary float-left"
+            disabled={disableButtons}
+          >
             Cancel
           </Link>
         </div>

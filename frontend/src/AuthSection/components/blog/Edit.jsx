@@ -12,6 +12,7 @@ function Edit(props) {
   const { setAlert } = useAlert();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [disableButtons, setDisableButtons] = useState(false);
   const titleRef = useRef("");
   const statusRef = useRef("Public");
   const [body, setBody] = useState("");
@@ -19,7 +20,8 @@ function Edit(props) {
 
   const editBlog = async (event) => {
     event.preventDefault();
-    if (body) {
+    if (body !== "<p><br></p>") {
+      setDisableButtons(true);
       setResponse("");
       let blog = {
         title: titleRef.current.value,
@@ -50,6 +52,7 @@ function Edit(props) {
   useEffect(() => {
     setLoading(true);
     setError(false);
+    setDisableButtons(false);
     fetch(`/blogs/read/${props.match.params.id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -86,6 +89,7 @@ function Edit(props) {
           body={body}
           setBody={setBody}
           handleSubmit={editBlog}
+          disableButtons={disableButtons}
         />
       )}
     </>
