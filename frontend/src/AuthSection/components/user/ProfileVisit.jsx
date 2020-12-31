@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
 import { useAuth } from "../../../contexts/AuthContext";
-import Card from "../../containers/Card";
 import UserProfile from "../../containers/UserProfile";
 import Loader from "./../../../containers/Loader";
 import Error from "./../error/Error";
 import { motion } from "framer-motion";
-import { getLoggedInUserDetails } from "../../db/useDB";
 import BlogsContainer from "../../containers/BlogsContainer";
+import { useAlert } from "../../contexts/AlertContext";
 
 function ProfileVisit(props) {
   const { user } = useAuth();
+  const { setAlert } = useAlert();
   const [profile, setProfile] = useState(null);
   const [blogs, setBlogs] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [savedBlogsList, setSavedBlogsList] = useState([]);
-
-  const initialSetup = async () => {
-    const data = await getLoggedInUserDetails(user._id);
-    setSavedBlogsList(data.savedBlogsList.blogs);
-  };
-
-  useEffect(() => {
-    initialSetup();
-  }, []);
 
   useEffect(() => {
     if (user._id !== props.match.params.userId) {
@@ -33,18 +23,24 @@ function ProfileVisit(props) {
       fetch(`/users/${props.match.params.userId}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          setProfile(data.user);
-          setBlogs(data.blogs);
-          setError(false);
+          // console.log(data);
+          if (data.user) {
+            setProfile(data.user);
+            setBlogs(data.blogs);
+            setError(false);
+          } else {
+            setError(true);
+            setAlert(data.msg);
+          }
           setLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           setProfile({});
           setBlogs([]);
-          setLoading(false);
+          setAlert("Server error, Please try later");
           setError(true);
+          setLoading(false);
         });
     }
   }, []);

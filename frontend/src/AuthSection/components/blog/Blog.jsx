@@ -34,7 +34,7 @@ function Blog(props) {
       })
       .catch((err) => {
         // console.log(err);
-        setAlert(err.msg);
+        setAlert("Error");
         setError(true);
         setLoading(false);
       });

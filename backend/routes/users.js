@@ -10,6 +10,7 @@ router.get("/:id", ensureAuth, async (req, res) => {
   try {
     try {
       const user = await User.findById(req.params.id);
+      if (!user) throw "Error";
       const blogs = await Blog.find({ user: req.params.id, status: "Public" })
         .populate("user")
         .sort({ createdAt: "desc" })
@@ -17,7 +18,7 @@ router.get("/:id", ensureAuth, async (req, res) => {
       res.status(200).json({ user, blogs });
     } catch (error) {
       // console.error(error);
-      res.status(404).sendStatus(404).statusMessage({ msg: "User not found" }); //.json({ msg: "404 Error" });
+      res.status(404).json({ msg: "User not found" });
     }
   } catch (error) {
     res.status(500).json({ msg: "Server Error" });
