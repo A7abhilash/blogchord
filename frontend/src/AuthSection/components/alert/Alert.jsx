@@ -7,11 +7,15 @@ function Alert() {
 
   useEffect(() => {
     // console.log(alert);
-    if (alert) {
+    let mounted = true;
+    if (mounted && alert) {
       setTimeout(() => {
         setAlert("");
       }, 4000);
     }
+    return () => {
+      mounted = false;
+    };
   }, [alert]);
 
   return (
