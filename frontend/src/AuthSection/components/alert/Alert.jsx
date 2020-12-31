@@ -41,14 +41,17 @@ export default Alert;
 
 const alertVariants = {
   hidden: {
-    y: "-100vh",
+    // y: "-100vh",
+    scale: 0,
   },
   visible: {
-    y: 0,
+    // y: 0,
+    scale: 1,
     transition: { delay: 0.2, duration: 0.8, type: "spring", stiffness: 90 },
   },
   exit: {
-    y: "-100vh",
+    // y: "-100vh",
+    scale: 0,
     transition: { ease: "easeInOut", duration: 0.8 },
   },
 };
@@ -71,7 +74,8 @@ const alertBoxStyle = {
   top: 0,
   left: 0,
   width: "100%",
-  height: "10%",
+  height: "100%",
+  backgroundColor: "#1f1f1f23",
   zIndex: 10,
   display: "flex",
   justifyContent: "center",
