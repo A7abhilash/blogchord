@@ -13,10 +13,10 @@ function Post() {
   const statusRef = useRef("Public");
   const [body, setBody] = useState("");
   const [response, setResponse] = useState(0);
+  const [blogId, setBlogId] = useState(null);
 
   const postBlog = (event) => {
     event.preventDefault();
-    console.log(body);
     if (body && body !== "<p><br></p>") {
       setResponse("");
       setDisableButtons(true);
@@ -38,10 +38,15 @@ function Post() {
       })
         .then((res) => {
           // console.log(res.status);
-          setResponse(res.status);
+          setTimeout(() => {
+            setResponse(res.status);
+          }, 2000);
           return res.json();
         })
         .then((data) => {
+          if (data.blogId) {
+            setBlogId(data.blogId);
+          }
           setAlert(data.msg);
         });
     } else setAlert("No blank fields.");
@@ -49,7 +54,7 @@ function Post() {
 
   return (
     <>
-      {response === 200 && <Redirect to="/dashboard" />}
+      {response === 200 && <Redirect to={`/read/${blogId}`} />}
       {response === 500 ? (
         <Error />
       ) : (

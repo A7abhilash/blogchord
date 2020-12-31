@@ -7,8 +7,8 @@ const { ensureAuth } = require("../middleware/auth");
 router.post("/post", ensureAuth, async (req, res) => {
   try {
     // console.log(req.body);
-    await Blog.create(req.body);
-    res.status(200).json({ msg: "New blog posted 👌." });
+    let blog = await Blog.create(req.body);
+    res.status(200).json({ blogId: blog._id, msg: "New blog posted 👌." });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Server error, Please try later." });
