@@ -78,10 +78,10 @@ module.exports = router;
 //*desc     add/remove a blog to/from bookmark
 router.patch("/bookmarks", ensureAuth, async (req, res) => {
   try {
-    if (req.body.userId.toString() !== req.user.id.toString()) {
-      return res.status(400).json({ msg: "404 Error" });
-    }
     try {
+      if (req.body.userId.toString() !== req.user.id.toString()) {
+        throw "Error";
+      }
       let savedBlogsList = await Bookmark.findOne({
         user: req.body.userId,
       });

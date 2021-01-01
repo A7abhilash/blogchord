@@ -52,15 +52,19 @@ router.get("/read/:id", ensureAuth, async (req, res) => {
 router.patch("/edit/:id", ensureAuth, async (req, res) => {
   try {
     // console.log(req.body);
-    let blog = await Blog.findById(req.params.id);
-    if (!blog) {
+    try {
+      let blog = await Blog.findById(req.params.id);
+      if (!blog) {
+        throw "Error";
+      }
+      if (blog.user.toString() !== req.user.id.toString()) {
+        throw "Error";
+      }
+      await blog.updateOne(req.body);
+      res.status(200).json({ msg: "Edited blog 👍" });
+    } catch (error) {
       return res.status(400).json({ msg: "404 Error" });
     }
-    if (blog.user.toString() !== req.user.id.toString()) {
-      return res.status(400).json({ msg: "404 Error" });
-    }
-    await blog.updateOne(req.body);
-    res.status(200).json({ msg: "Edited blog 👍" });
   } catch (error) {
     res.status(500).json({ msg: "Server error, Please try later." });
   }
@@ -86,15 +90,19 @@ router.patch("/updateLikes/:id", ensureAuth, async (req, res) => {
 //*desc     Delete a blog
 router.delete("/delete/:id", ensureAuth, async (req, res) => {
   try {
-    let blog = await Blog.findById(req.params.id);
-    if (!blog) {
+    try {
+      let blog = await Blog.findById(req.params.id);
+      if (!blog) {
+        throw "Error";
+      }
+      if (blog.user.toString() !== req.user.id.toString()) {
+        throw "Error";
+      }
+      await blog.deleteOne(req.body);
+      res.status(200).json({ msg: "Blog deleted 👀" });
+    } catch (error) {
       return res.status(400).json({ msg: "404 Error" });
     }
-    if (blog.user.toString() !== req.user.id.toString()) {
-      return res.status(400).json({ msg: "404 Error" });
-    }
-    await blog.deleteOne(req.body);
-    res.status(200).json({ msg: "Deleted blog 👀" });
   } catch (error) {
     res.status(500).json({ msg: "Server error, Please try later." });
   }
