@@ -12,7 +12,9 @@ function Navbar() {
       <div className="container">
         <Link
           to="/"
-          className="navbar-brand d-flex align-items-center text-danger mx-auto"
+          className={`navbar-brand d-flex align-items-center text-danger ${
+            !user && "mx-auto"
+          }`}
         >
           <motion.img
             src={icon}

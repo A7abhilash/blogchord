@@ -11,7 +11,7 @@ function Alert() {
     if (mounted && alert) {
       setTimeout(() => {
         setAlert("");
-      }, 4000);
+      }, 3000);
     }
     return () => {
       mounted = false;
@@ -45,7 +45,7 @@ const alertVariants = {
   },
   visible: {
     y: 0,
-    transition: { delay: 0.2, duration: 0.8, type: "spring", stiffness: 90 },
+    transition: { delay: 0.2, duration: 0.5, type: "spring", stiffness: 80 },
   },
   exit: {
     y: "-100vh",
@@ -62,7 +62,7 @@ const borderVariant = {
     backgroundColor: "#dc3545",
     height: 3,
     width: "100%",
-    transition: { duration: 4 },
+    transition: { duration: 3 },
   },
 };
 
