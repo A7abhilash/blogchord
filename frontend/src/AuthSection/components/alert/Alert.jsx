@@ -41,17 +41,14 @@ export default Alert;
 
 const alertVariants = {
   hidden: {
-    // y: "-100vh",
-    scale: 0,
+    y: "-100vh",
   },
   visible: {
-    // y: 0,
-    scale: 1,
+    y: 0,
     transition: { delay: 0.2, duration: 0.8, type: "spring", stiffness: 90 },
   },
   exit: {
-    // y: "-100vh",
-    scale: 0,
+    y: "-100vh",
     transition: { ease: "easeInOut", duration: 0.8 },
   },
 };
@@ -71,13 +68,13 @@ const borderVariant = {
 
 const alertBoxStyle = {
   position: "fixed",
-  top: 0,
+  top: 12,
   left: 0,
   width: "100%",
   height: "100%",
-  backgroundColor: "#1f1f1f23",
+  backgroundColor: "#12121200",
   zIndex: 10,
-  display: "flex",
   justifyContent: "center",
-  alignItems: "center",
+  // display: "flex",
+  // alignItems: "center",
 };
