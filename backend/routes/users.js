@@ -65,10 +65,10 @@ router.get("/auth/:id", ensureAuth, async (req, res) => {
       // console.log(savedBlogs);
       return res.status(200).json({ blogs, savedBlogs, savedBlogsList });
     }
-    res.status(400).json({ msg: "404 Error" });
+    return res.status(400).json({ msg: "404 Error" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "Server Error" });
+    return res.status(500).json({ msg: "Server Error" });
   }
 });
 
