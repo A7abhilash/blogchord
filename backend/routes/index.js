@@ -22,6 +22,9 @@ router.get("/dashboard", ensureAuth, (req, res) => {
 //@desc       Send the details of logged in user
 router.get("/user", async (req, res) => {
   try {
+    if (req.hostname === process.env.BACKEND_HOSTNAME) {
+      return res.redirect(`${process.env.FRONTEND_URL}/`);
+    }
     if (req.user) {
       let user = await Users.findOne({ googleId: req.user.googleId });
       // console.log(user);
