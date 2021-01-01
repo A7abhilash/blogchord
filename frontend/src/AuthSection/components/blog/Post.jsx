@@ -40,7 +40,7 @@ function Post() {
           // console.log(res.status);
           setTimeout(() => {
             setResponse(res.status);
-          }, 2000);
+          }, 1000);
           return res.json();
         })
         .then((data) => {

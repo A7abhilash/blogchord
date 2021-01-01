@@ -60,7 +60,9 @@ function Card({
             className="img-fluid rounded-circle mr-2"
             style={{ height: 30 }}
           />
-          <h6 className="m-0 text-danger">{blog.user.displayName}</h6>
+          <h6 className="m-0 text-danger">
+            {blog.user.displayName.substring(0, 20)}
+          </h6>
         </Link>
         <div className="ml-auto d-flex align-items-center">
           {access ? (
@@ -112,6 +114,7 @@ function Card({
             Read
           </Link>
           <h6 className="ml-auto text-warning">
+            <span className="text-muted mr-1">({likesCount})</span>
             {access ? (
               <i className="fas fa-heart fa-lg "></i>
             ) : (
@@ -126,8 +129,6 @@ function Card({
                 style={{ cursor: "pointer" }}
               ></motion.i>
             )}
-
-            <span className="text-muted ml-1">({likesCount})</span>
           </h6>
         </div>
       </div>

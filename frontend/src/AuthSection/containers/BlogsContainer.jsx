@@ -14,7 +14,6 @@ import CardNotFound from "./CardNotFound";
 function BlogsContainer({ displayBlogs, isProfile }) {
   const { user } = useAuth();
   const { setAlert } = useAlert();
-  const [blogs, setBlogs] = useState([]);
   const [savedLists, setSavedLists] = useState([]);
 
   useEffect(() => {
@@ -23,7 +22,6 @@ function BlogsContainer({ displayBlogs, isProfile }) {
   const initialSetup = async () => {
     const data = await getLoggedInUserDetails(user._id);
     setSavedLists(data.savedBlogsList.blogs);
-    setBlogs(displayBlogs);
   };
 
   const addBookmark = async (blogId) => {
@@ -51,7 +49,6 @@ function BlogsContainer({ displayBlogs, isProfile }) {
       let updatedLikes = {
         likes: [...blog.likes, user._id],
       };
-      setBlogs(blogs);
       await updateLikes(updatedLikes, blog._id);
     }
   };
