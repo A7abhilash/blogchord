@@ -8,7 +8,6 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [allBlogs, setAllBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +18,6 @@ export function AuthProvider({ children }) {
         // console.log(data);
         if (data) {
           setUser(data.user);
-          setAllBlogs(data.blogs);
         }
         setLoading(false);
       })
@@ -31,7 +29,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, allBlogs }}>
+    <AuthContext.Provider value={{ user, loading }}>
       {children}
     </AuthContext.Provider>
   );

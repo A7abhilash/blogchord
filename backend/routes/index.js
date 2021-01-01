@@ -1,4 +1,3 @@
-const Blogs = require("../models/Blogs");
 const express = require("../node_modules/express");
 const router = express.Router();
 const { ensureAuth, ensureGuest } = require("./../middleware/auth");
@@ -25,16 +24,12 @@ router.get("/user", async (req, res) => {
   try {
     if (req.user) {
       let user = await Users.findOne({ googleId: req.user.googleId });
-      let blogs = await Blogs.find({ user: req.user._id })
-        .populate("user")
-        .sort({ createdAt: "desc" })
-        .lean();
       // console.log(user);
-      return res.json({ user, blogs });
+      return res.json({ user });
     }
-    res.json(null);
+    return res.json(null);
   } catch (error) {
-    res.status(500).json({ msg: error.message });
+    return res.status(500).json({ msg: error.message });
   }
 });
 
