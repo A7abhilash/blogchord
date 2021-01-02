@@ -1,12 +1,11 @@
 # Blogchord
 
-> Medium clone  
-> (In progress)
+> A blogging platform designed for little stories that make your day better.
 
 ### Features
 
 - [x] 1. Post/Edit your blogs
-- [x] 2. Keep your blog post in private or public status
+- [x] 2. Set private or public status
 - [x] 3. Profile Visit
 - [x] 4. Save posts(Bookmark)
 - [x] 5. Likes
@@ -18,5 +17,4 @@
 ### Technologies
 
 1.Stack: MERN  
-2.Animations: Framer Motion  
-3.Auth: Passport OAuth 2.0
+2.Auth: Passport OAuth 2.0
