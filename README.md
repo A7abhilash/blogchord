@@ -4,12 +4,12 @@
 
 ### Features
 
-- [x] 1. Post/Edit your blogs
-- [x] 2. Set private or public status
-- [x] 3. Profile Visit
-- [x] 4. Save posts(Bookmark)
-- [x] 5. Likes
-- [x] 6. Alerts(in site)
+1. Post/Edit your blogs
+2. Set private or public status for your blogs
+3. User Profile Visit
+4. Save posts(Bookmark)
+5. Likes
+6. Alerts(in site)
 
 <!-- - [ ] 6. Notifications
 - [ ] 6. Follow requests (or) Followers/Following -->
