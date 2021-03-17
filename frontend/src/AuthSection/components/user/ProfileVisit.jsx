@@ -43,7 +43,7 @@ function ProfileVisit(props) {
           setLoading(false);
         });
     }
-  }, []);
+  }, [props.match.params.userId, setAlert, user._id]);
   return user._id === props.match.params.userId ? (
     <Redirect to="/dashboard" />
   ) : loading ? (

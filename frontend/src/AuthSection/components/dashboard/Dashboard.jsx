@@ -15,17 +15,14 @@ function Dashboard() {
   const [displayBlogs, setDisplayBlogs] = useState([]);
   const [savedBlogs, setSavedBlogs] = useState([]);
 
-  const fetchBlogs = async () => {
-    const data = await getLoggedInUserDetails(user._id);
-    // console.log(data);
-    setAllBlogs(data.blogs);
-    setDisplayBlogs(data.blogs);
-    setSavedBlogs(data.savedBlogs);
-  };
-
   useEffect(() => {
-    fetchBlogs();
-  }, []);
+    getLoggedInUserDetails(user._id).then((data) => {
+      // console.log(data);
+      setAllBlogs(data.blogs);
+      setDisplayBlogs(data.blogs);
+      setSavedBlogs(data.savedBlogs);
+    });
+  }, [user._id]);
 
   const setSelection = (id) => {
     setSelectedOption(id);

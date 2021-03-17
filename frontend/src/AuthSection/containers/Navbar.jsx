@@ -100,15 +100,15 @@ const headerTitle = {
   },
 };
 
-const bellVariant = {
-  visible: {
-    rotateZ: [0, -20, 20, -20, 0],
-    transition: { delay: 0.5, yoyo: Infinity },
-  },
-  onHover: {
-    scale: 1.1,
-  },
-  onTap: {
-    scale: 0.8,
-  },
-};
+// const bellVariant = {
+//   visible: {
+//     rotateZ: [0, -20, 20, -20, 0],
+//     transition: { delay: 0.5, yoyo: Infinity },
+//   },
+//   onHover: {
+//     scale: 1.1,
+//   },
+//   onTap: {
+//     scale: 0.8,
+//   },
+// };

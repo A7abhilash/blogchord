@@ -4,24 +4,14 @@ import Loader from "../../containers/Loader";
 import Error from "./error/Error";
 import { motion } from "framer-motion";
 import BlogsContainer from "../containers/BlogsContainer";
-import { getLoggedInUserDetails } from "../db/useDB";
-import { useAuth } from "../../contexts/AuthContext";
+// import { getLoggedInUserDetails } from "../db/useDB";
+// import { useAuth } from "../../contexts/AuthContext";
 
 function Home() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [savedBlogsList, setSavedBlogsList] = useState([]);
-
-  const initialSetup = async () => {
-    const data = await getLoggedInUserDetails(user._id);
-    setSavedBlogsList(data.savedBlogsList.blogs);
-  };
-
-  useEffect(() => {
-    initialSetup();
-  }, []);
 
   useEffect(() => {
     setLoading(true);

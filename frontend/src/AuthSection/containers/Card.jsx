@@ -21,7 +21,7 @@ function Card({
   useEffect(() => {
     setLiked(isLiked);
     setLikesCount(likes.length);
-  }, []);
+  }, [isLiked, likes.length]);
 
   const onLike = (blogToBeLiked) => {
     // console.log("Like");

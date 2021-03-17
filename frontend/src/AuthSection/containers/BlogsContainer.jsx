@@ -17,12 +17,10 @@ function BlogsContainer({ displayBlogs, isProfile }) {
   const [savedLists, setSavedLists] = useState([]);
 
   useEffect(() => {
-    initialSetup();
-  }, []);
-  const initialSetup = async () => {
-    const data = await getLoggedInUserDetails(user._id);
-    setSavedLists(data.savedBlogsList.blogs);
-  };
+    getLoggedInUserDetails(user._id).then((data) => {
+      setSavedLists(data.savedBlogsList.blogs);
+    });
+  }, [setSavedLists, user._id]);
 
   const addBookmark = async (blogId) => {
     if (!savedLists.includes(blogId)) {
